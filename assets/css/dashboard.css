@@ -24,6 +24,10 @@ li,a,label,th{
     font-size: 14px;
 }
 
+.active{
+    background: rgb(219, 219, 219);
+}
+
 .card-title{
     font-size: 15px;
 }
