@@ -17,3 +17,10 @@ body{
     background-repeat: no-repeat;
     height: 100vh;
 }
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 992px) {
+    #imagen-fondo-empresa{
+        display: none;
+    }
+}
