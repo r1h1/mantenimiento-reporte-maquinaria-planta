@@ -1,79 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            display: flex;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #343a40;
-            padding: 20px;
-            position: fixed;
-            color: white;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-        }
-        .sidebar a:hover {
-            background-color: #495057;
-        }
-        .content {
-            margin-left: 250px;
-            padding: 20px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"> <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="icon" href="../assets/img/vical-logo-03.png">
 </head>
+
 <body>
-    <div class="sidebar">
-        <h4>Admin Panel</h4>
-        <a href="#">Dashboard</a>
-        <a href="#">Users</a>
-        <a href="#">Settings</a>
-        <a href="#">Logout</a>
+    <!-- Botón de menú (aparece en pantallas menores a 1068px) -->
+    <button id="menuToggle" class="menu-btn">
+        <i class="bi bi-list"></i> <!-- Ícono de Bootstrap -->
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="text-center mt-5 mb-5">
+            <img src="../assets/img/vical-logo-03.png" alt="vical-logo" width="120px">
+        </div>
+        <ul>
+            <li><a href="home.html">Dashboard</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="areas.html">Áreas</a></li>
+            <li><a href="maquinas.html">Máquinas</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+            <li><a href="grupos.html">Grupos</a></li>
+            <li><a href="reportar_fallo.html">Reportar fallo/mantenimiento</a></li>
+            <a href="../index.html" class="btn btn-danger mt-5 text-white">Cerrar sesión</a>
+        </ul>
     </div>
-    
-    <div class="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-            <div class="container-fluid">
-                <span class="navbar-brand">Dashboard</span>
-            </div>
-        </nav>
-        <div class="container mt-4">
+
+    <div class="content" id="content">
+        <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card text-white bg-primary mb-3">
+                    <div class="card text-white bg-secondary mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Users</h5>
-                            <p class="card-text">Manage your users here.</p>
+                            <h5 class="card-title">Usuarios registrados</h5>
+                            <p class="card-text h3">0</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card text-white bg-success mb-3">
+                    <div class="card text-white bg-secondary mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Reports</h5>
-                            <p class="card-text">View system reports.</p>
+                            <h5 class="card-title">Áreas registradas</h5>
+                            <p class="card-text h3">0</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card text-white bg-warning mb-3">
+                    <div class="card text-white bg-secondary mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Settings</h5>
-                            <p class="card-text">Configure system settings.</p>
+                            <h5 class="card-title">Máquinaria registrada</h5>
+                            <p class="card-text h3">0</p>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="imagen-planta-dashboard">
+                        <!-- imagenplanta -->
                     </div>
                 </div>
             </div>
@@ -81,5 +70,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/menu.js"></script> <!-- JavaScript separado -->
 </body>
+
 </html>

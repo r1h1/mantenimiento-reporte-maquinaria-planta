@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="../assets/css/modules.css">
+    <link rel="icon" href="../assets/img/vical-logo-03.png">
+</head>
+
+<body>
+    <!-- Botón de menú (aparece en pantallas menores a 1068px) -->
+    <button id="menuToggle" class="menu-btn">
+        <i class="bi bi-list"></i> <!-- Ícono de Bootstrap -->
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="text-center mt-5 mb-5">
+            <img src="../assets/img/vical-logo-03.png" alt="vical-logo" width="120px">
+        </div>
+        <ul>
+            <li><a href="home.html">Dashboard</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="areas.html">Áreas</a></li>
+            <li><a href="maquinas.html">Máquinas</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+            <li><a href="grupos.html">Grupos</a></li>
+            <li><a href="reportar_fallo.html">Reportar fallo/mantenimiento</a></li>
+            <a href="../index.html" class="btn btn-danger mt-5 text-white">Cerrar sesión</a>
+        </ul>
+    </div>
+
+    <div class="content" id="content">
+        <div class="container-fluid p-5">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="formulario card border-1">
+                        <h5 class="card-header">Gestión</h5>
+                        <form class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputEmail4" class="form-label">Nombre Completo</label>
+                                <input type="email" class="form-control" id="inputEmail4">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputPassword4" class="form-label">Teléfono Personal</label>
+                                <input type="password" class="form-control" id="inputPassword4">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="inputAddress" class="form-label">Dirección</label>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputAddress2" class="form-label">Teléfono Corporativo</label>
+                                <input type="text" class="form-control" id="inputAddress2"
+                                    placeholder="Apartment, studio, or floor">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputCity" class="form-label">Correo Electrónico</label>
+                                <input type="text" class="form-control" id="inputCity" placeholder="xx@x.com">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputState" class="form-label">Área</label>
+                                <select id="inputState" class="form-select">
+                                    <option selected>Choose...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <label for="inputZip" class="form-label">Usuario</label>
+                                <input type="text" class="form-control" id="inputZip">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="inputZip" class="form-label">Contraseña</label>
+                                <input type="text" class="form-control" id="inputZip">
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <a class="btn btn-danger w-100">Guardar</a>
+                            </div>
+                            <div class="col-md-12 col-lg-6">
+                                <a class="btn btn-danger w-100">Limpiar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 card">
+                    <h5 class="card-header">Información</h5>
+                    <div class="tabla-de-datos card-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/menu.js"></script> <!-- JavaScript separado -->
+</body>
+
+</html>

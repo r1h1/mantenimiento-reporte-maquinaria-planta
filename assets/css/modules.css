@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    background-color: #ececec;
+}
+
+.container-fluid{
+    background-color: #ffffff;
+    height: auto;
+}
+
+h1,h2,h3,h4,h5{
+    font-size: 20px;
+}
+
+li,a{
+    font-size: 15px;
+}
+
+.card-title{
+    font-size: 15px;
+}
+
+/* Sidebar mejorado */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    padding: 16px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    color: rgb(68, 68, 68);
+}
+
+.sidebar ul {
+    padding: 0;
+}
+
+.sidebar li {
+    list-style: none;
+}
+
+.sidebar li a {
+    text-decoration: none;
+    color: rgb(68, 68, 68);
+    display: block;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.sidebar li a:hover {
+    background: rgb(219, 219, 219);
+}
+
+.sidebar .btn {
+    width: 100%;
+}
+
+/* Ocultar sidebar cuando está cerrado */
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Botón de menú mejorado */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100;
+    display: none;
+    background-color: #ffffff;
+}
+
+.menu-btn i {
+    font-size: 30px;
+}
+
+/* Contenido principal */
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.content.shift {
+    margin-left: 0;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 1200px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+}

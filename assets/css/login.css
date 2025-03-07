@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    font-family: "Roboto", sans-serif;
+}
+
+#imagen-fondo-empresa {
+    background-image: url(../img/gal-vigua-03.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
