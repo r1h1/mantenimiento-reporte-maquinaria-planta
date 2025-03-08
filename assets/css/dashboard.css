@@ -82,13 +82,13 @@ li,a,label,th{
 .menu-btn {
     position: fixed;
     top: 20px;
-    left: 30px;
+    left: 25px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     z-index: 1100;
     display: none;
-    background-color: #ebebeb;
+    background-color: #ffffff;
 }
 
 .menu-btn i {
