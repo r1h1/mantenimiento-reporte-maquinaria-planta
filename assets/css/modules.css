@@ -109,7 +109,7 @@ li,a,label,th{
 }
 
 /* Media Query para pantallas pequeñas */
-@media (max-width: 1200px) {
+@media (max-width: 1068px) {
     .sidebar {
         transform: translateX(-100%);
     }
