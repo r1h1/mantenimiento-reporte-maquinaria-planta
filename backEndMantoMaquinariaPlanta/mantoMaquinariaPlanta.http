@@ -1,0 +1,6 @@
+@mantoMaquinariaPlanta_HostAddress = http://localhost:5049
+
+GET {{mantoMaquinariaPlanta_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
