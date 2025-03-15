@@ -57,5 +57,43 @@ async function sendData(url, method, data) {
     return await response.json();
 }
 
+
+// Para validar el token
+async function fetchDataToken(url, method, headers = {}) {
+    const response = await fetch(url, {
+        method,
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            ...headers // Asegurar que los headers personalizados se incluyan correctamente
+        },
+    });
+
+    // Leer el JSON una sola vez
+    let responseData;
+    try {
+        responseData = await response.json();
+    } catch {
+        responseData = null;
+    }
+
+    if (!response.ok) {
+        let errorMessage = `Error ${response.status}: ${response.statusText}`;
+
+        if (responseData && responseData.message) {
+            errorMessage = responseData.message;
+        }
+
+        throw new Error(errorMessage);
+    }
+
+    if (response.status === 204 || method === "DELETE") {
+        return null;
+    }
+
+    return responseData;
+}
+
+
 // Exportar funciones
-export { fetchData, sendData };
+export { fetchData, sendData, fetchDataToken };

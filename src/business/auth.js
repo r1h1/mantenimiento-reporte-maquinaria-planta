@@ -5,9 +5,13 @@ import {
 import { sendData } from '../data/apiMethods.js';
 import { showError } from '../utils/sweetAlert.js';
 
-// Función para sanitizar entradas y prevenir XSS
+// Función mejorada para sanitizar entradas
 const sanitizeInput = (input) => {
-    return input.replace(/[<>'"\/]/g, ""); // Elimina caracteres peligrosos
+    return input
+        .trim()
+        .replace(/[<>"'%;()&+\\]/g, '') // Bloquea caracteres peligrosos para XSS y SQL Injection
+        .replace(/\s+/g, ' ') // Reduce espacios en blanco repetidos
+        .replace(/\b(SELECT|INSERT|DELETE|DROP|UPDATE|CREATE|ALTER|WHERE|EXEC|CAST|CONVERT|UNION|XP_)\b/gi, ''); // Bloquea palabras clave SQL Injection
 };
 
 const login = async () => {
