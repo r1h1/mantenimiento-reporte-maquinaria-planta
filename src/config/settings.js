@@ -1,4 +1,7 @@
-const API_URL_BASE = 'http://mantoreportevical.somee.com';
+//LOCAL = https://localhost:7099
+//PRODUCCION = http://mantoreportevical.somee.com
+
+const API_URL_BASE = 'https://vicalapi.somee.com';
 const API_AREAS = `${API_URL_BASE}/api/Areas`;
 const API_ASIGNACIONES = `${API_URL_BASE}/api/Asignaciones`;
 const API_AUTH_LOGIN = `${API_URL_BASE}/api/Auth/Login`;

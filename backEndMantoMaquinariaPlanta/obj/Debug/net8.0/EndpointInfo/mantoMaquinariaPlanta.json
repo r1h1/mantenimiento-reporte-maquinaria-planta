@@ -264,37 +264,6 @@
         }
       }
     },
-    "/api/Auth/Register": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Auth"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Auth"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Auth"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Auth/ValidarToken": {
       "get": {
         "tags": [
@@ -1500,39 +1469,6 @@
           "materialesUtilizados": {
             "type": "string",
             "nullable": true
-          },
-          "estado": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Auth": {
-        "type": "object",
-        "properties": {
-          "idAuth": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "usuario": {
-            "type": "string",
-            "nullable": true
-          },
-          "clave": {
-            "type": "string",
-            "nullable": true
-          },
-          "fechaCreacion": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "idRol": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "idUsuario": {
-            "type": "integer",
-            "format": "int32"
           },
           "estado": {
             "type": "boolean"

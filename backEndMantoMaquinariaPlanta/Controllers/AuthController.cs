@@ -6,12 +6,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using BCrypt.Net;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
 
 namespace mantoMaquinariaPlanta.Controllers
 {
-    [EnableCors("NuevaPolitica")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -69,23 +67,6 @@ namespace mantoMaquinariaPlanta.Controllers
                 message = "Autenticación exitosa",
                 token
             });
-        }
-
-        // POST: api/Auth/Register - Registro de usuario con contraseña encriptada
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromBody] Auth usuario)
-        {
-            if (string.IsNullOrEmpty(usuario.Usuario) || string.IsNullOrEmpty(usuario.Clave))
-                return BadRequest(new { message = "Usuario o contraseña no pueden estar vacíos." });
-
-            usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
-
-            int nuevoId = await _authData.Registrar(usuario); // Ahora se recibe el ID del usuario registrado
-
-            if (nuevoId == 0)
-                return Conflict(new { message = "No se pudo registrar el usuario." });
-
-            return Created("", new { message = "Usuario registrado exitosamente.", id = nuevoId });
         }
 
         // GET: api/Auth/ValidarToken - Verifica si el token es válido

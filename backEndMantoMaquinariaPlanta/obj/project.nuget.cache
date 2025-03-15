@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eXSSTaDJYmk=",
+  "dgSpecHash": "xctdi4DtL20=",
   "success": true,
-  "projectFilePath": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\backEndMantoMaquinariaPlanta\\mantoMaquinariaPlanta.csproj",
+  "projectFilePath": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\mantoMaquinariaPlanta.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.14\\microsoft.aspnetcore.authentication.jwtbearer.8.0.14.nupkg.sha512",

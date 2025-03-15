@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\PC\Desktop\DanielBackup\CONTROLYMANTOQUIPOINDUSTRIAL\backEndMantoMaquinariaPlanta\Properties\PublishProfiles\FTPProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\PC\Desktop\DanielBackup\CONTROLYMANTOQUIPOINDUSTRIAL\frontEnd\backEndMantoMaquinariaPlanta\Properties\PublishProfiles\FTPProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

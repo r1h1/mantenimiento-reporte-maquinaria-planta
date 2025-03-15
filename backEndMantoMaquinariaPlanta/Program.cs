@@ -7,8 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.Data.SqlClient;
 using System.Text;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,34 +19,39 @@ builder.Configuration.AddJsonFile("appsettings.json");
 
 // **Obtener clave secreta para JWT**
 var secretKey = builder.Configuration["settings:secretkey"];
+
+if (string.IsNullOrEmpty(secretKey))
+{
+    throw new Exception("Secret key not found in appsettings.json");
+}
+
 var keyBytes = Encoding.UTF8.GetBytes(secretKey);
 
-// **Configurar autenticación JWT sin validar Issuer ni Audience**
+// **Configurar autenticación JWT**
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(config =>
     {
-        config.RequireHttpsMetadata = true;
+        config.RequireHttpsMetadata = false; // 🔹 Permitir HTTP en desarrollo
         config.SaveToken = true;
         config.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
-            ValidateIssuer = false,  // No validar Issuer
-            ValidateAudience = false,  // No validar Audience
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
         };
     });
 
-// **CONFIGURAR CORS**
+// **CONFIGURAR CORS** (Permitir todas las políticas necesarias)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AbiertoParaTodos", app =>
+    options.AddPolicy("PoliticaGlobal", builder =>
     {
-        app.WithOrigins("http://127.0.0.1:5500")  // 🔹 Solo permite tu frontend
-           .AllowAnyHeader()
-           .AllowAnyMethod()
-           .AllowCredentials();
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
     });
 });
 
@@ -68,6 +75,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// **Verificar Conexión a la Base de Datos antes de iniciar**
+try
+{
+    var connectionString = builder.Configuration.GetConnectionString("CadenaSQL");
+    using (var connection = new SqlConnection(connectionString))
+    {
+        connection.Open();
+        Console.WriteLine("Conexión a la BD exitosa.");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Error al conectar con la base de datos: " + ex.Message);
+}
+
 // **Construcción de la app**
 var app = builder.Build();
 
@@ -84,19 +106,28 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
-// **Habilitar CORS antes del enrutamiento**
-app.UseCors("AbiertoParaTodos");
-
 app.UseRouting();
 
-// **AUTENTICACIÓN Y AUTORIZACIÓN EN EL ORDEN CORRECTO**
+// **AHORA CORS ESTÁ ENTRE UseRouting() y UseAuthorization()**
+app.UseCors("PoliticaGlobal");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// **Middleware para evitar exposición de errores en producción**
-app.UseExceptionHandler("/error");
+// **Middleware para capturar errores y mostrar detalles**
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        var errorMessage = exception?.Message ?? "Error desconocido en el servidor.";
 
-// **Enrutamiento y controladores**
+        context.Response.StatusCode = 500;
+        await context.Response.WriteAsJsonAsync(new { error = errorMessage });
+    });
+});
+
+// **Mapear controladores**
 app.MapControllers();
 
 // **Iniciar la aplicación**

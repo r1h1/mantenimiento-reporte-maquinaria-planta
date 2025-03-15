@@ -1,27 +1,38 @@
-import { 
-    API_URL_BASE, 
-    API_AREAS, 
-    API_ASIGNACIONES,
-    API_AUTH_LOGIN,
-    API_AUTH_REGISTER,
-    API_AUTH_VALIDARTOKEN,
-    API_FINALIZACIONES,
-    API_GRUPOS,
-    API_GRUPOUSUARIOS,
-    API_MAQUINAS,
-    API_MENU,
-    API_PLANTAS,
-    API_REPORTES,
-    API_ROL,
-    API_TIPOMAQUINAS,
-    API_USUARIOS
+import {
+    API_AUTH_LOGIN
 } from '../config/settings.js';
 
-import { fetchData, sendData } from '../utils/apiMethods.js';
+import { sendData } from '../data/apiMethods.js';
+import { showError } from '../utils/sweetAlert.js';
 
-// Ejemplo de GET (Obtener usuarios)
-async function obtenerUsuarios() {
-    const usuarios = await fetchData(API_USUARIOS);
-    console.log("Usuarios:", usuarios);
-}
-obtenerUsuarios();
+const login = async () => {
+    const usuario = document.getElementById("email").value;
+    const clave = document.getElementById("password").value;
+
+    if (!usuario || !clave) {
+        showError('Llena todos los campos para continuar.');
+        return;
+    }
+
+    try {
+        const data = { usuario, clave };
+        const response = await sendData(API_AUTH_LOGIN, "POST", data);
+
+        if (response && response.token) {
+            sessionStorage.setItem("token", response.token);
+            window.location.href = "../../src/views/modules/home.html";
+        } else {
+            showError('Usuario y/o contraseña incorrecto.');
+        }
+    } catch (error) {
+        showError(error.message || 'Ocurrió un error inesperado.');
+    }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const loginButton = document.getElementById("loginButton");
+
+    if (loginButton) {
+        loginButton.addEventListener("click", login);
+    }
+});

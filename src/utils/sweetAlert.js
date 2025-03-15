@@ -19,7 +19,7 @@ function showSuccess(message = "Operación realizada con éxito") {
 }
 
 // Función para mostrar alerta de error
-function showError(message = "Ocurrió un error inesperado") {
+function showError(message) {
     return Swal.fire({
         title: "Error",
         text: message,

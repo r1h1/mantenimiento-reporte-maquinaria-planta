@@ -165,22 +165,6 @@
   },
   {
     "ContainingType": "mantoMaquinariaPlanta.Controllers.AuthController",
-    "Method": "Register",
-    "RelativePath": "api/Auth/Register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "usuario",
-        "Type": "mantoMaquinariaPlanta.Models.Auth",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mantoMaquinariaPlanta.Controllers.AuthController",
     "Method": "ValidarToken",
     "RelativePath": "api/Auth/ValidarToken",
     "HttpMethod": "GET",
