@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" href="../../assets/css/modules.css">
+    <link rel="icon" href="../../assets/img/vical-logo-03.png">
+</head>
+
+<body>
+    <!-- Botón de menú (aparece en pantallas menores a 1068px) -->
+    <button id="menuToggle" class="menu-btn" onclick="responsiveMenu()">
+        <i class="bi bi-list"></i> <!-- Ícono de Bootstrap -->
+    </button>
+
+    <div class="sidebar" id="sidebar">
+        <div class="text-center mt-5 mb-5">
+            <img src="../../assets/img/vical-logo-03.png" alt="vical-logo" width="120px">
+        </div>
+        <ul>
+            <li><a href="home.html">Dashboard</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="areas.html">Áreas</a></li>
+            <li><a href="maquinas.html">Máquinas</a></li>
+            <li><a href="grupos.html">Grupos</a></li>
+            <li><a href="reportar_fallo.html" class="active">Reportar fallo/mantenimiento</a></li>
+            <a href="../../../index.html" class="btn btn-danger mt-5 text-white">Cerrar sesión</a>
+        </ul>
+    </div>
+
+    <div class="content" id="content">
+        <div class="container-fluid p-5">
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="formulario card border-1">
+                        <h5 class="card-header">Información mantenimiento #<span>0000000000</span></h5>
+                        <form class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Área</label>
+                                <select id="areaFiltro" class="form-select" disabled>
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Máquina</label>
+                                <select id="maquinaFiltro" class="form-select" disabled>
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Impacto</label>
+                                <select id="prioridadFiltro" class="form-select" disabled>
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Personas Lastimadas</label>
+                                <select id="maquinaFiltro" class="form-select" disabled>
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Daños Materiales</label>
+                                <select id="prioridadFiltro" class="form-select" disabled>
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Fecha Reporte</label>
+                                <input type="date" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Título Reporte</label>
+                                <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Medidas Tomadas</label>
+                                <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <label for="inputState" class="form-label">Descripción</label>
+                                <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="formulario card border-1">
+                        <h5 class="card-header">Asignación</h5>
+                        <form class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Grupo</label>
+                                <select id="areaFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Usuario Asignado</label>
+                                <select id="maquinaFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Estado</label>
+                                <select id="prioridadFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Fecha Inicio Trabajo</label>
+                                <input type="date" name="date" id="fechaInicioFiltro" class="form-control">
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <label for="inputState" class="form-label">Descripción / Hallazgo</label>
+                                <input type="email" class="form-control" id="nombreCodigo">
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <label for="inputState" class="form-label">Descripción de materiales utilizados</label>
+                                <input type="email" class="form-control" id="nombreCodigo">
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <a class="btn btn-danger w-100">Guardar</a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <a class="btn btn-danger w-100">Cerrar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="formulario card border-1">
+                        <h5 class="card-header">Finalización</h5>
+                        <form class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Grupo</label>
+                                <select id="areaFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Usuario Asignado</label>
+                                <select id="maquinaFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Estado</label>
+                                <select id="prioridadFiltro" class="form-select">
+                                    <option selected>Selecciona...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 col-lg-3">
+                                <label for="inputState" class="form-label">Fecha Fin Trabajo</label>
+                                <input type="date" name="date" id="fechaInicioFiltro" class="form-control">
+                            </div>
+                            <div class="col-md-12 col-lg-12">
+                                <label for="inputState" class="form-label">Descripción de la solución</label>
+                                <input type="email" class="form-control" id="nombreCodigo">
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <a class="btn btn-danger w-100">Cerrar</a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <a class="btn btn-danger w-100">Congelar</a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-2">
+                                <a class="btn btn-danger w-100">Retomar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="../../utils/init.js"></script>
+</body>
+
+</html>
