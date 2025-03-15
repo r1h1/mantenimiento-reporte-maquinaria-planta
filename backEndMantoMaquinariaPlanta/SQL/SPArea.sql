@@ -13,7 +13,7 @@ BEGIN
     INSERT INTO Areas (Nombre, Ubicacion, IdPlanta, Descripcion, Estado)
     VALUES (@Nombre, @Ubicacion, @IdPlanta, @Descripcion, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdArea; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdArea; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

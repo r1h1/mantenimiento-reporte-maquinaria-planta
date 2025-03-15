@@ -16,7 +16,7 @@ BEGIN
     INSERT INTO Asignaciones (IdReporte, IdGrupo, IdUsuario, EstadoAsignado, FechaInicioTrabajo, DescripcionHallazgo, MaterialesUtilizados, Estado)
     VALUES (@IdReporte, @IdGrupo, @IdUsuario, @EstadoAsignado, @FechaInicioTrabajo, @DescripcionHallazgo, @MaterialesUtilizados, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdAsignacion; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdAsignacion; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

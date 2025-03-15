@@ -12,7 +12,7 @@ BEGIN
     INSERT INTO Plantas (Nombre, Descripcion, UbicacionYDireccion, Estado)
     VALUES (@Nombre, @Descripcion, @UbicacionYDireccion, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdPlanta; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdPlanta; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

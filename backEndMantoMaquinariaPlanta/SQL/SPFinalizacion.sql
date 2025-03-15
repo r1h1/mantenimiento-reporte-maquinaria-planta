@@ -13,7 +13,7 @@ BEGIN
     INSERT INTO Finalizaciones (IdAsignacion, FechaFinTrabajo, DescripcionSolucion, EstadoFinalizado, Estado)
     VALUES (@IdAsignacion, @FechaFinTrabajo, @DescripcionSolucion, @EstadoFinalizado, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdFinalizacion; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdFinalizacion; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

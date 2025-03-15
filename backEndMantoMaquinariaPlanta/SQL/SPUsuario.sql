@@ -15,7 +15,7 @@ BEGIN
     INSERT INTO Usuarios (NombreCompleto, TelefonoPersonal, TelefonoCorporativo, Direccion, CorreoElectronico, IdArea, Estado)
     VALUES (@NombreCompleto, @TelefonoPersonal, @TelefonoCorporativo, @Direccion, @CorreoElectronico, @IdArea, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdUsuario; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdUsuario; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================
@@ -30,6 +30,7 @@ BEGIN
     FROM Usuarios
     WHERE Estado = 1; -- Solo usuarios activos
 END;
+
 
 -- =============================================
 -- Obtener un usuario por ID

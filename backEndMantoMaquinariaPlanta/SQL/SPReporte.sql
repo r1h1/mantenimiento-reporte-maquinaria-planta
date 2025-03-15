@@ -18,7 +18,7 @@ BEGIN
     INSERT INTO Reportes (IdArea, IdMaquina, Impacto, PersonasLastimadas, DanosMateriales, FechaReporte, Titulo, MedidasTomadas, Descripcion, EstadoReporte, Estado)
     VALUES (@IdArea, @IdMaquina, @Impacto, @PersonasLastimadas, @DanosMateriales, GETDATE(), @Titulo, @MedidasTomadas, @Descripcion, @EstadoReporte, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdReporte; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdReporte; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

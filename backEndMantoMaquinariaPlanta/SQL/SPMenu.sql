@@ -11,7 +11,7 @@ BEGIN
     INSERT INTO Menu (Nombre, RutaHTML, Estado)
     VALUES (@Nombre, @RutaHTML, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdMenu; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdMenu; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

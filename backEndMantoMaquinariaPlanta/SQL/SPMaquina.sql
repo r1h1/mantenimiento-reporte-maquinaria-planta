@@ -13,7 +13,7 @@ BEGIN
     INSERT INTO Maquinas (NombreCodigo, IdTipoMaquina, IdArea, IdPlanta, Estado)
     VALUES (@NombreCodigo, @IdTipoMaquina, @IdArea, @IdPlanta, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdMaquina; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdMaquina; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

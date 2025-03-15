@@ -12,7 +12,7 @@ BEGIN
     INSERT INTO Grupos (Nombre, IdArea, Descripcion, Estado)
     VALUES (@Nombre, @IdArea, @Descripcion, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdGrupo; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdGrupo; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

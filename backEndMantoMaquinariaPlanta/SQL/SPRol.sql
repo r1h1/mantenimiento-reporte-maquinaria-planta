@@ -11,7 +11,7 @@ BEGIN
     INSERT INTO Rol (Nombre, IdMenu, Estado)
     VALUES (@Nombre, @IdMenu, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdRol; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdRol; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================

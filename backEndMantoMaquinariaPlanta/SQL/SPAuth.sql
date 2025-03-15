@@ -13,7 +13,7 @@ BEGIN
     INSERT INTO Auth (Usuario, Clave, FechaCreacion, IdRol, IdUsuario, Estado)
     VALUES (@Usuario, @ClaveHasheada, GETDATE(), @IdRol, @IdUsuario, 1);
 
-    SELECT SCOPE_IDENTITY() AS NuevoIdAuth; -- Retorna el ID del nuevo registro
+    SELECT CAST(SCOPE_IDENTITY() AS INT) AS NuevoIdAuth; -- Retorna el ID del nuevo registro
 END;
 
 -- =============================================
@@ -55,7 +55,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT Clave
+    SELECT Usuario, Clave, IdRol, IdUsuario
     FROM Auth
     WHERE Usuario = @Usuario AND Estado = 1;
 END;
