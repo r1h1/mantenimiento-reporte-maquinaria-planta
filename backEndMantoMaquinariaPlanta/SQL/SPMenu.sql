@@ -58,6 +58,9 @@ BEGIN
         RutaHTML = @RutaHTML,
         Estado = @Estado
     WHERE IdMenu = @IdMenu;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================

@@ -68,10 +68,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var menuExistente = await _data.ObtenerId(menu.IdMenu);
+            if (menuExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Menú no encontrado" });
+            }
+
             bool respuesta = await _data.Editar(menu);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Menú actualizado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Menú no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el menú, pero existe" });
         }
 
         // DELETE: api/Menu/{id} - Eliminación lógica de un menú

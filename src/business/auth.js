@@ -5,14 +5,23 @@ import {
 import { sendData } from '../data/apiMethods.js';
 import { showError } from '../utils/sweetAlert.js';
 
+// Función para sanitizar entradas y prevenir XSS
+const sanitizeInput = (input) => {
+    return input.replace(/[<>'"\/]/g, ""); // Elimina caracteres peligrosos
+};
+
 const login = async () => {
-    const usuario = document.getElementById("email").value;
-    const clave = document.getElementById("password").value;
+    let usuario = document.getElementById("email").value.trim();
+    let clave = document.getElementById("password").value.trim();
 
     if (!usuario || !clave) {
         showError('Llena todos los campos para continuar.');
         return;
     }
+
+    // Sanitizar entradas para evitar XSS
+    usuario = sanitizeInput(usuario);
+    clave = sanitizeInput(clave);
 
     try {
         const data = { usuario, clave };

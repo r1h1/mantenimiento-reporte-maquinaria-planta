@@ -112,9 +112,17 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@RutaHTML", menu.RutaHTML);
                 cmd.Parameters.AddWithValue("@Estado", menu.Estado);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                // 🔹 Leer el número de filas afectadas desde el SP
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false; // Si no hubo cambios, retorna false
         }
 
         // Eliminar un menú (desactivación lógica)
