@@ -49,14 +49,18 @@
                 <div class="col-md-12">
                     <div class="formulario card border-1">
                         <h5 class="card-header">Gestión</h5>
-                        <form class="row g-3 card-body p-4">
+                        <div class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-4" hidden>
+                                <label for="inputEmail4" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="idArea">
+                            </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="email" class="form-control" id="nombre">
+                                <input type="text" class="form-control" id="nombre">
                             </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputPassword4" class="form-label">Ubicación (Dentro de planta)</label>
-                                <input type="password" class="form-control" id="ubicacion">
+                                <input type="text" class="form-control" id="ubicacion">
                             </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputState" class="form-label">Planta</label>
@@ -70,12 +74,12 @@
                                 <input type="text" class="form-control" id="descripcion" placeholder="">
                             </div>
                             <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Guardar</a>
+                                <button id="guardarArea" class="btn btn-danger w-100">Guardar/Editar</button>
                             </div>
                             <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Limpiar</a>
+                                <button id="limpiarArea" class="btn btn-danger w-100">Limpiar</>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 card">
@@ -84,7 +88,7 @@
                         <table class="table table-striped" id="tabla-datos-dinamicos">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Ubicación</th>
                                     <th scope="col">Planta</th>
@@ -116,7 +120,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../utils/init.js"></script>
     <script type="module" src="../../utils/sweetAlert.js"></script>
-    <script type="module" src="../../business/usuarios.js"></script>
+    <script type="module" src="../../business/areas.js"></script>
 </body>
 
 </html>

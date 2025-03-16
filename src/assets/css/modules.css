@@ -10,6 +10,7 @@ body {
     display: flex;
     font-family: "Roboto", sans-serif;
     background-color: #ececec;
+    overflow-x: hidden;
 }
 
 .loader-container {
