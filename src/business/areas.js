@@ -173,15 +173,20 @@ window.eliminarAreas = async (idArea) => {
         try {
             const response = await fetchData(`${API_AREAS}/${idArea}`, "DELETE", obtenerHeaders());
 
+            console.log("Respuesta del API:", response); // 📌 Agregar este log
+
             if (response && response.code === 200) {
                 showSuccess("Área eliminada correctamente.");
-                obtenerAreas(); // Actualizar la tabla después de eliminar
+                cargarTodasLasFuncionesGet();
+            } else {
+                showError("No se pudo eliminar el área.");
             }
         } catch (error) {
             showError("Error al eliminar el área: " + error);
         }
     }
 };
+
 
 const limpiar = function () {
     document.getElementById("idArea").value = '';

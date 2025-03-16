@@ -31,7 +31,7 @@ async function fetchData(url, method, headers = {}) {
     }
 
     // Si la respuesta es 204 No Content o DELETE, no intentamos parsear JSON
-    if (response.status === 204 || method === "DELETE") {
+    if (response.status === 204) {
         return null;
     }
 
@@ -105,7 +105,7 @@ async function fetchDataToken(url, method, headers = {}) {
         throw new Error(errorMessage);
     }
 
-    if (response.status === 204 || method === "DELETE") {
+    if (response.status === 204) {
         return null;
     }
 
