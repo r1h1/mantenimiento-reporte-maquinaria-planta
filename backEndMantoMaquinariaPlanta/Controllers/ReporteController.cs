@@ -63,10 +63,43 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Editar([FromBody] Reporte reporte)
         {
+            if (reporte == null || reporte.IdReporte == 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
+            }
+
+            var reporteExistente = await _data.ObtenerId(reporte.IdReporte);
+            if (reporteExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Reporte no encontrado" });
+            }
+
             bool respuesta = await _data.Editar(reporte);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Reporte actualizado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Reporte no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el reporte, pero existe" });
+        }
+
+        // DELETE: api/Reportes/{id} - Eliminación lógica de un reporte
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var reporteExistente = await _data.ObtenerId(id);
+            if (reporteExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Reporte no encontrado" });
+            }
+
+            bool respuesta = await _data.Eliminar(id);
+            return respuesta
+                ? Ok(new { code = 200, isSuccess = true, message = "Reporte desactivado correctamente" })
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el reporte, pero existe" });
         }
     }
 }

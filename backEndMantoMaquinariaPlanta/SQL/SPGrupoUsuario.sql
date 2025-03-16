@@ -61,6 +61,9 @@ BEGIN
     UPDATE GrupoUsuarios
     SET Estado = 0
     WHERE IdGrupo = @IdGrupo AND IdUsuario = @IdUsuario;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -76,4 +79,7 @@ BEGIN
     UPDATE GrupoUsuarios
     SET Estado = 1
     WHERE IdGrupo = @IdGrupo AND IdUsuario = @IdUsuario;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

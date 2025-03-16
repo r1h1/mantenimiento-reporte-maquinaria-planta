@@ -66,10 +66,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var areaExistente = await _data.ObtenerId(area.IdArea);
+            if (areaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Área no encontrada" });
+            }
+
             bool respuesta = await _data.Editar(area);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Área actualizada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Área no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el área, pero existe" });
         }
 
         // DELETE: api/Areas/{id} - Eliminación lógica de un área
@@ -77,10 +83,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var areaExistente = await _data.ObtenerId(id);
+            if (areaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Área no encontrada" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Área desactivada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Área no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el área, pero existe" });
         }
     }
 }

@@ -71,6 +71,8 @@ BEGIN
         IdArea = @IdArea,
         Estado = @Estado
     WHERE IdUsuario = @IdUsuario;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -85,4 +87,6 @@ BEGIN
     UPDATE Usuarios
     SET Estado = 0
     WHERE IdUsuario = @IdUsuario;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

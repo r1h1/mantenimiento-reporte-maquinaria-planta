@@ -64,6 +64,9 @@ BEGIN
         IdPlanta = @IdPlanta,
         Estado = @Estado
     WHERE IdMaquina = @IdMaquina;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -78,4 +81,7 @@ BEGIN
     UPDATE Maquinas
     SET Estado = 0
     WHERE IdMaquina = @IdMaquina;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

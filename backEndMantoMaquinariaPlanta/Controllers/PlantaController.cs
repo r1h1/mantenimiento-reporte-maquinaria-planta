@@ -68,10 +68,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var plantaExistente = await _data.ObtenerId(planta.IdPlanta);
+            if (plantaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Planta no encontrada" });
+            }
+
             bool respuesta = await _data.Editar(planta);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Planta actualizada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Planta no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la planta, pero existe" });
         }
 
         // DELETE: api/Plantas/{id} - Eliminación lógica de una planta
@@ -79,10 +85,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var plantaExistente = await _data.ObtenerId(id);
+            if (plantaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Planta no encontrada" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Planta desactivada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Planta no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la planta, pero existe" });
         }
     }
 }

@@ -79,6 +79,8 @@ BEGIN
         EstadoReporte = @EstadoReporte,
         Estado = @Estado
     WHERE IdReporte = @IdReporte;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -93,4 +95,6 @@ BEGIN
     UPDATE Reportes
     SET Estado = 0
     WHERE IdReporte = @IdReporte;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

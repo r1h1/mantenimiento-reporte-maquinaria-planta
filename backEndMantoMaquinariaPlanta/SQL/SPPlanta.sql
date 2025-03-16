@@ -61,6 +61,9 @@ BEGIN
         UbicacionYDireccion = @UbicacionYDireccion,
         Estado = @Estado
     WHERE IdPlanta = @IdPlanta;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -75,4 +78,7 @@ BEGIN
     UPDATE Plantas
     SET Estado = 0
     WHERE IdPlanta = @IdPlanta;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

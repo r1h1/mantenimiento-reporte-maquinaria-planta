@@ -64,6 +64,8 @@ BEGIN
         EstadoFinalizado = @EstadoFinalizado,
         Estado = @Estado
     WHERE IdFinalizacion = @IdFinalizacion;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -78,4 +80,6 @@ BEGIN
     UPDATE Finalizaciones
     SET Estado = 0
     WHERE IdFinalizacion = @IdFinalizacion;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

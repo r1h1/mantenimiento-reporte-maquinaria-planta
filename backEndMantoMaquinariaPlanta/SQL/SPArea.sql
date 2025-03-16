@@ -64,6 +64,9 @@ BEGIN
         Descripcion = @Descripcion,
         Estado = @Estado
     WHERE IdArea = @IdArea;
+    
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -78,4 +81,7 @@ BEGIN
     UPDATE Areas
     SET Estado = 0
     WHERE IdArea = @IdArea;
+    
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

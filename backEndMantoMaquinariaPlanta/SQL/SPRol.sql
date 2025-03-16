@@ -58,6 +58,8 @@ BEGIN
         IdMenu = @IdMenu,
         Estado = @Estado
     WHERE IdRol = @IdRol;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -72,4 +74,6 @@ BEGIN
     UPDATE Rol
     SET Estado = 0
     WHERE IdRol = @IdRol;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

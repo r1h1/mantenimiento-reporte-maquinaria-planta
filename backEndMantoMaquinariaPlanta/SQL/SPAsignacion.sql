@@ -73,6 +73,9 @@ BEGIN
         MaterialesUtilizados = @MaterialesUtilizados,
         Estado = @Estado
     WHERE IdAsignacion = @IdAsignacion;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -87,4 +90,7 @@ BEGIN
     UPDATE Asignaciones
     SET Estado = 0
     WHERE IdAsignacion = @IdAsignacion;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

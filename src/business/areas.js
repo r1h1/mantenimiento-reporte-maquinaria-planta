@@ -12,16 +12,18 @@ const closeSession = function () {
     }
 };
 
+const obtenerHeaders = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        closeSession();
+        return null;
+    }
+    return { "Authorization": `Bearer ${token}` };
+};
+
 const obtenerAreas = async () => {
     try {
-        const token = sessionStorage.getItem("token");
-        if (!token) {
-            closeSession();
-        }
-        const headers = {
-            "Authorization": `Bearer ${token}`
-        };
-        const response = await fetchData(API_AREAS, "GET", headers);
+        const response = await fetchData(API_AREAS, "GET", obtenerHeaders());
 
         if (response) {
             // Inicializar DataTable con los nombres correctos de las columnas
@@ -57,18 +59,9 @@ const obtenerAreas = async () => {
 
 const obtenerPlantas = async () => {
     try {
-        const token = sessionStorage.getItem("token");
         const selectPlanta = document.getElementById("planta");
         selectPlanta.innerHTML = `<option value="0" selected>Selecciona...</option>`;
-
-        if (!token) {
-            closeSession();
-        }
-        const headers = {
-            "Authorization": `Bearer ${token}`
-        };
-        const response = await fetchData(API_PLANTAS, "GET", headers);
-
+        const response = await fetchData(API_PLANTAS, "GET", obtenerHeaders);
         if (response) {
             response.forEach(planta => {
                 const option = document.createElement("option");
@@ -77,8 +70,11 @@ const obtenerPlantas = async () => {
                 selectPlanta.appendChild(option);
             });
         }
-        if (response.length === 0) {
-            selectPlanta.innerHTML += `<option disabled>No hay plantas disponibles</option>`;
+        if (!response || response.length === 0) {
+            const optionDefault = document.createElement("option");
+            optionDefault.value = "0";
+            optionDefault.textContent = "Selecciona...";
+            selectPlanta.appendChild(optionDefault);
         }
     } catch (error) {
         showError(error);
@@ -88,7 +84,6 @@ const obtenerPlantas = async () => {
 
 const postAreas = async () => {
     try {
-        const token = sessionStorage.getItem("token");
         const idArea = 0;
         const nombre = document.getElementById("nombre").value;
         const ubicacion = document.getElementById("ubicacion").value;
@@ -110,10 +105,7 @@ const postAreas = async () => {
             estado
         };
 
-        const headers = {
-            "Authorization": `Bearer ${token}`
-        };
-        const response = await sendData(API_AREAS, "POST", data, headers);
+        const response = await sendData(API_AREAS, "POST", data, obtenerHeaders());
 
         if (response && response.code === 201) {
             showSuccess(response.message);
@@ -134,7 +126,6 @@ window.editarAreas = function (row) {
 
 const putAreas = async () => {
     try {
-        const token = sessionStorage.getItem("token");
         const idArea = document.getElementById("idArea").value;
         const nombre = document.getElementById("nombre").value;
         const ubicacion = document.getElementById("ubicacion").value;
@@ -155,11 +146,7 @@ const putAreas = async () => {
             descripcion,
             estado
         };
-
-        const headers = {
-            "Authorization": `Bearer ${token}`
-        };
-        const response = await sendData(API_AREAS, "PUT", data, headers);
+        const response = await sendData(API_AREAS, "PUT", data, obtenerHeaders());
 
         if (response && response.code === 200) {
             showSuccess("Área actualizada correctamente.");
@@ -184,11 +171,7 @@ window.eliminarAreas = async (idArea) => {
 
     if (confirmDelete.isConfirmed) {
         try {
-            const token = sessionStorage.getItem("token");
-            const headers = {
-                "Authorization": `Bearer ${token}`
-            };
-            const response = await fetchData(`${API_AREAS}/${idArea}`, "DELETE", headers);
+            const response = await fetchData(`${API_AREAS}/${idArea}`, "DELETE", obtenerHeaders());
 
             if (response && response.code === 200) {
                 showSuccess("Área eliminada correctamente.");
@@ -214,50 +197,56 @@ const cargarTodasLasFuncionesGet = function () {
     limpiar();
 }
 
+
+// Carga de JavaScript al cargar la página
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const token = sessionStorage.getItem("token"); // Obtener token del almacenamiento
-        const closeSessionButton = document.getElementById("closeSession");
-        const areaButton = document.getElementById("guardarArea");
-        const limpiarButton = document.getElementById("limpiarArea");
-
-        if (!token) {
-            window.location.href = "../../../src/views/pages/401.html";
-            return;
-        }
-
-        const esValido = await verificarToken(token); // Validar token
-
-        if (!esValido) {
-            sessionStorage.removeItem("token");
-            window.location.href = "../../../src/views/pages/401.html";
-            return;
-        }
-
-        cargarTodasLasFuncionesGet();
-
-        // Si trae el ID area ejecuta PUT para actualizar, si no, ejecuta POST
-        if (areaButton) {
-            areaButton.addEventListener("click", () => {
-                const idArea = document.getElementById("idArea").value.trim();
-                if (idArea) {
-                    putAreas(); // Ejecuta actualización si hay un ID
-                } else {
-                    postAreas(); // Ejecuta inserción si el ID está vacío
-                }
-            });
-        }
-
-        if(limpiarButton){
-            limpiarButton.addEventListener("click", limpiar);
-        }
-
-        if (closeSessionButton) {
-            closeSessionButton.addEventListener("click", closeSession);
-        } else {
-            return false;
-        }
+        if (!validarSesion()) return;
+        await manejarValidacionToken();
+        inicializarEventos();
     } catch (error) {
-        return false;
+        console.error("Error en la inicialización:", error);
     }
 });
+
+const validarSesion = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        redirigirA401();
+        return false;
+    }
+    return true;
+};
+
+const manejarValidacionToken = async () => {
+    const token = sessionStorage.getItem("token");
+    const esValido = await verificarToken(token);
+    if (!esValido) {
+        sessionStorage.removeItem("token");
+        redirigirA401();
+    } else {
+        cargarTodasLasFuncionesGet();
+    }
+};
+
+const inicializarEventos = () => {
+    asignarEvento("guardarArea", manejarGuardarArea);
+    asignarEvento("limpiarArea", limpiar);
+    asignarEvento("closeSession", closeSession);
+};
+
+const asignarEvento = (idElemento, callback) => {
+    const elemento = document.getElementById(idElemento);
+    if (elemento) {
+        elemento.addEventListener("click", callback);
+    }
+};
+
+const manejarGuardarArea = () => {
+    const idArea = document.getElementById("idArea")?.value.trim();
+    idArea ? putAreas() : postAreas();
+};
+
+const redirigirA401 = () => {
+    window.location.href = "../../../src/views/pages/401.html";
+};

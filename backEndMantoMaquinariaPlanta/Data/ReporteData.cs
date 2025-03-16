@@ -142,9 +142,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@EstadoReporte", reporte.EstadoReporte);
                 cmd.Parameters.AddWithValue("@Estado", reporte.Estado);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
 
         // Eliminar un reporte (desactivación lógica)
@@ -157,9 +164,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdReporte", id);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
     }
 }

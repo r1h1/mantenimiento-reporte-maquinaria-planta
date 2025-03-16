@@ -68,10 +68,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var tipoMaquinaExistente = await _data.ObtenerId(tipoMaquina.IdTipoMaquina);
+            if (tipoMaquinaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Tipo de máquina no encontrado" });
+            }
+
             bool respuesta = await _data.Editar(tipoMaquina);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Tipo de máquina actualizado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Tipo de máquina no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el tipo de máquina, pero existe" });
         }
 
         // DELETE: api/TipoMaquinas/{id} - Eliminación lógica de un tipo de máquina
@@ -79,10 +85,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var tipoMaquinaExistente = await _data.ObtenerId(id);
+            if (tipoMaquinaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Tipo de máquina no encontrado" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Tipo de máquina desactivado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Tipo de máquina no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el tipo de máquina, pero existe" });
         }
     }
 }

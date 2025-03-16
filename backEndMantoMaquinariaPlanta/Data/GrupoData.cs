@@ -94,7 +94,7 @@ namespace mantoMaquinariaPlanta.Data
                 {
                     if (await reader.ReadAsync())
                     {
-                        nuevoId = reader.GetInt32(0); // Retorna el ID del nuevo grupo
+                        nuevoId = reader.GetInt32(0);
                     }
                 }
             }
@@ -116,9 +116,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@Descripcion", (object)grupo.Descripcion ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Estado", grupo.Estado);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
 
         // Eliminar un grupo (desactivación lógica)
@@ -131,9 +138,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdGrupo", id);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
     }
 }

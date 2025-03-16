@@ -128,9 +128,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@IdArea", (object)usuario.IdArea ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
 
         // Eliminar (desactivar) un usuario
@@ -143,9 +150,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IdUsuario", id);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
     }
 }

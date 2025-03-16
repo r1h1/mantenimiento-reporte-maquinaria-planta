@@ -84,9 +84,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@IdGrupo", grupoUsuario.IdGrupo);
                 cmd.Parameters.AddWithValue("@IdUsuario", grupoUsuario.IdUsuario);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
 
         // Eliminar un usuario de un grupo (desactivación lógica)
@@ -101,9 +108,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@IdGrupo", idGrupo);
                 cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
 
         // Reactivar un usuario en un grupo (restauración lógica)
@@ -118,9 +132,16 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@IdGrupo", idGrupo);
                 cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
-                int filasAfectadas = await cmd.ExecuteNonQueryAsync();
-                return filasAfectadas > 0;
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
             }
+            return false;
         }
     }
 }

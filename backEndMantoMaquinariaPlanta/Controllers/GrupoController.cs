@@ -68,10 +68,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var grupoExistente = await _data.ObtenerId(grupo.IdGrupo);
+            if (grupoExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Grupo no encontrado" });
+            }
+
             bool respuesta = await _data.Editar(grupo);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Grupo actualizado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Grupo no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el grupo, pero existe" });
         }
 
         // DELETE: api/Grupos/{id} - Eliminación lógica de un grupo
@@ -79,10 +85,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var grupoExistente = await _data.ObtenerId(id);
+            if (grupoExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Grupo no encontrado" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Grupo desactivado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Grupo no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el grupo, pero existe" });
         }
     }
 }

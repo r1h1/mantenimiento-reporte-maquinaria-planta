@@ -93,6 +93,8 @@ BEGIN
             Estado = @Estado
         WHERE IdAuth = @IdAuth;
     END;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -107,4 +109,6 @@ BEGIN
     UPDATE Auth
     SET Estado = 0
     WHERE IdAuth = @IdAuth;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

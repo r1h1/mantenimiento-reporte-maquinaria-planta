@@ -58,10 +58,16 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> EliminarUsuarioDeGrupo(int idGrupo, int idUsuario)
         {
+            var usuarioExistente = await _data.ObtenerUsuariosDeGrupo(idGrupo);
+            if (usuarioExistente == null || usuarioExistente.Count == 0)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Relación Grupo-Usuario no encontrada" });
+            }
+
             bool respuesta = await _data.EliminarUsuarioDeGrupo(idGrupo, idUsuario);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Usuario eliminado del grupo correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Relación Grupo-Usuario no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la relación Grupo-Usuario" });
         }
 
         // PUT: api/GrupoUsuarios/Reactivar/{idGrupo}/{idUsuario} - Reactivar usuario en un grupo
@@ -69,10 +75,16 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> ReactivarUsuarioEnGrupo(int idGrupo, int idUsuario)
         {
+            var usuarioExistente = await _data.ObtenerUsuariosDeGrupo(idGrupo);
+            if (usuarioExistente == null || usuarioExistente.Count == 0)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Relación Grupo-Usuario no encontrada" });
+            }
+
             bool respuesta = await _data.ReactivarUsuarioEnGrupo(idGrupo, idUsuario);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Usuario reactivado en el grupo correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Relación Grupo-Usuario no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la relación Grupo-Usuario" });
         }
     }
 }

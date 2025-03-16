@@ -68,10 +68,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var maquinaExistente = await _data.ObtenerId(maquina.IdMaquina);
+            if (maquinaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Máquina no encontrada" });
+            }
+
             bool respuesta = await _data.Editar(maquina);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Máquina actualizada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Máquina no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la máquina, pero existe" });
         }
 
         // DELETE: api/Maquinas/{id} - Eliminación lógica de una máquina
@@ -79,10 +85,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var maquinaExistente = await _data.ObtenerId(id);
+            if (maquinaExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Máquina no encontrada" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Máquina desactivada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Máquina no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la máquina, pero existe" });
         }
     }
 }

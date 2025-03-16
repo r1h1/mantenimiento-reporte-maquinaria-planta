@@ -58,6 +58,8 @@ BEGIN
         Descripcion = @Descripcion,
         Estado = @Estado
     WHERE IdTipoMaquina = @IdTipoMaquina;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -72,4 +74,6 @@ BEGIN
     UPDATE TipoMaquinas
     SET Estado = 0
     WHERE IdTipoMaquina = @IdTipoMaquina;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

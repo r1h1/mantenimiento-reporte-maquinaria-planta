@@ -61,6 +61,9 @@ BEGIN
         Descripcion = @Descripcion,
         Estado = @Estado
     WHERE IdGrupo = @IdGrupo;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
 
 -- =============================================
@@ -75,4 +78,7 @@ BEGIN
     UPDATE Grupos
     SET Estado = 0
     WHERE IdGrupo = @IdGrupo;
+
+    -- Retornar el número de filas afectadas
+    SELECT @@ROWCOUNT AS FilasAfectadas;
 END;

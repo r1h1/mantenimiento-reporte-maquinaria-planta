@@ -67,10 +67,16 @@ namespace mantoMaquinariaPlanta.Controllers
                 return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
             }
 
+            var asignacionExistente = await _data.ObtenerId(asignacion.IdAsignacion);
+            if (asignacionExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Asignación no encontrada" });
+            }
+
             bool respuesta = await _data.Editar(asignacion);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Asignación actualizada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Asignación no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la asignación, pero existe" });
         }
 
         // DELETE: api/Asignaciones/{id} - Eliminación lógica de una asignación
@@ -78,10 +84,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var asignacionExistente = await _data.ObtenerId(id);
+            if (asignacionExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Asignación no encontrada" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Asignación desactivada correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Asignación no encontrada" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en la asignación, pero existe" });
         }
     }
 }

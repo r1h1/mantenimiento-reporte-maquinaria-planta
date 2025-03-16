@@ -85,10 +85,21 @@ namespace mantoMaquinariaPlanta.Controllers
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID inválido" });
+            }
+
+            var menuExistente = await _data.ObtenerId(id);
+            if (menuExistente == null)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Menú no encontrado" });
+            }
+
             bool respuesta = await _data.Eliminar(id);
             return respuesta
                 ? Ok(new { code = 200, isSuccess = true, message = "Menú desactivado correctamente" })
-                : NotFound(new { code = 404, isSuccess = false, message = "Menú no encontrado" });
+                : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el menú, pero existe" });
         }
     }
 }
