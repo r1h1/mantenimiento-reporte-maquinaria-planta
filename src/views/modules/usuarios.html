@@ -49,10 +49,14 @@
                 <div class="col-md-12">
                     <div class="formulario card border-1">
                         <h5 class="card-header">Gestión</h5>
-                        <form class="row g-3 card-body p-4">
+                        <div class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-4" hidden>
+                                <label for="inputEmail4" class="form-label">ID</label>
+                                <input type="text" class="form-control" id="idUsuario">
+                            </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputEmail4" class="form-label">Nombre Completo</label>
-                                <input type="email" class="form-control" id="nombreCompleto">
+                                <input type="text" class="form-control" id="nombreCompleto">
                             </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputPassword4" class="form-label">Teléfono Personal</label>
@@ -69,30 +73,24 @@
                             </div>
                             <div class="col-md-12 col-lg-6">
                                 <label for="inputCity" class="form-label">Correo Electrónico</label>
-                                <input type="text" class="form-control" id="correoElectronico" placeholder="xx@x.com">
+                                <input type="email" class="form-control" id="correoElectronico" placeholder="xx@x.com">
                             </div>
                             <div class="col-md-12 col-lg-6">
                                 <label for="inputState" class="form-label">Área</label>
                                 <select id="area" class="form-select">
                                     <option selected>Selecciona...</option>
-                                    <option>...</option>
                                 </select>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <label for="inputZip" class="form-label">Usuario</label>
-                                <input type="text" class="form-control" id="usuario">
+                            <div class="col-md-12 col-lg-4">
+                                <button class="btn btn-danger w-100" id="guardarEditar">Guardar/Editar</button>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <label for="inputZip" class="form-label">Contraseña</label>
-                                <input type="text" class="form-control" id="clave">
+                            <div class="col-md-12 col-lg-4">
+                                <button class="btn btn-danger w-100" id="cambiarClave">Cambiar Contraseña</button>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Guardar</a>
+                            <div class="col-md-12 col-lg-4">
+                                <button class="btn btn-danger w-100" id="limpiar">Limpiar</button>
                             </div>
-                            <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Limpiar</a>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 card">
@@ -101,14 +99,13 @@
                         <table class="table table-striped" id="tabla-datos-dinamicos">
                             <thead>
                               <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Telefono</th>
                                 <th scope="col">Corporativo</th>
                                 <th scope="col">Direccion</th>
                                 <th scope="col">Correo Electrónico</th>
                                 <th scope="col">Área</th>
-                                <th scope="col">Usuario</th>
                                 <th scope="col">Acciones</th>
                               </tr>
                             </thead>

@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using mantoMaquinariaPlanta.Data;
 using mantoMaquinariaPlanta.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace mantoMaquinariaPlanta.Controllers
 {
-    [EnableCors("NuevaPolitica")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuariosController : ControllerBase
