@@ -7,6 +7,7 @@ const API_ASIGNACIONES = `${API_URL_BASE}/api/Asignaciones`;
 const API_AUTH_LOGIN = `${API_URL_BASE}/api/Auth/Login`;
 const API_AUTH_REGISTER = `${API_URL_BASE}/api/Auth/Register`;
 const API_AUTH_VALIDARTOKEN = `${API_URL_BASE}/api/Auth/ValidarToken`;
+const API_AUTH_CAMBIARCLAVE = `${API_URL_BASE}/api/Auth/CambiarClave`;
 const API_FINALIZACIONES = `${API_URL_BASE}/api/Finalizaciones`;
 const API_GRUPOS = `${API_URL_BASE}/api/Grupos`;
 const API_GRUPOUSUARIOS = `${API_URL_BASE}/api/GrupoUsuarios`;
@@ -25,6 +26,7 @@ export {
     API_AUTH_LOGIN,
     API_AUTH_REGISTER,
     API_AUTH_VALIDARTOKEN,
+    API_AUTH_CAMBIARCLAVE,
     API_FINALIZACIONES,
     API_GRUPOS,
     API_GRUPOUSUARIOS,

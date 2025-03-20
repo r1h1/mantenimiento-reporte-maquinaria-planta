@@ -41,23 +41,6 @@ namespace mantoMaquinariaPlanta.Controllers
             return Ok(usuario);
         }
 
-        // POST: api/Usuarios - Crear un usuario
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Crear([FromBody] Usuarios usuario)
-        {
-            if (usuario == null)
-            {
-                return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos" });
-            }
-
-            int nuevoId = await _data.Crear(usuario);
-
-            return nuevoId > 0
-                ? StatusCode(StatusCodes.Status201Created, new { code = 201, isSuccess = true, message = "Usuario creado exitosamente", id = nuevoId })
-                : StatusCode(StatusCodes.Status409Conflict, new { code = 409, isSuccess = false, message = "No se pudo crear el usuario" });
-        }
-
         // PUT: api/Usuarios - Editar un usuario
         [HttpPut]
         [Authorize]
@@ -80,7 +63,7 @@ namespace mantoMaquinariaPlanta.Controllers
                 : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el usuario, pero existe" });
         }
 
-        // DELETE: api/Usuarios/{id} - Eliminación lógica de un usuario
+        // DELETE: api/Usuarios/{id} - Eliminación lógica de un usuario en Usuarios y Auth
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> Eliminar(int id)
@@ -98,7 +81,7 @@ namespace mantoMaquinariaPlanta.Controllers
 
             bool respuesta = await _data.Eliminar(id);
             return respuesta
-                ? Ok(new { code = 200, isSuccess = true, message = "Usuario desactivado correctamente" })
+                ? Ok(new { code = 200, isSuccess = true, message = "Usuario desactivado correctamente en Usuarios y Auth" })
                 : Ok(new { code = 200, isSuccess = true, message = "No hubo cambios en el usuario, pero existe" });
         }
     }

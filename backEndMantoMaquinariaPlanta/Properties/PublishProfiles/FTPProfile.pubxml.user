@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqevDELHWF0aE1SIH1UQVlAAAAAACAAAAAAAQZgAAAAEAACAAAADmtfQBdJdc7PLNFMcNcOvC3RrVrsF6+rzpSYzyWCTA0gAAAAAOgAAAAAIAACAAAABIqRvbAm5++qLmfYv1Eahtcc9Bg3JPcMRddWAVUIDaZTAAAABU5zNHBGpLtblu39yj+xAgLEHv/McWstz3whXTRVA7xABVlCENuv0dMrlTobiwGKhAAAAAiAW5nVMuHgxp92SDQ8AOXRRqDe0u4u9IDMcRX7mtioM2NJ3qMriEgDMkAUbWjliNnGTIZEGiUh5dBK/uMIq0UA==</EncryptedPassword>
     <_PublishTargetUrl>ftp://vicalapi.somee.com/www.vicalapi.somee.com</_PublishTargetUrl>
-    <History>True|2025-03-17T22:47:23.4976916Z||;True|2025-03-17T16:44:37.2635361-06:00||;True|2025-03-16T17:41:49.8872503-06:00||;True|2025-03-15T16:35:03.4526526-06:00||;False|2025-03-15T16:34:29.9048362-06:00||;True|2025-03-15T14:31:48.4456092-06:00||;False|2025-03-15T14:09:03.5353530-06:00||;False|2025-03-15T14:06:33.9478532-06:00||;</History>
+    <History>True|2025-03-20T19:56:55.9937221Z||;True|2025-03-20T13:00:49.2280122-06:00||;True|2025-03-20T12:43:53.7679205-06:00||;True|2025-03-19T16:45:29.2564531-06:00||;True|2025-03-17T16:47:23.4976916-06:00||;True|2025-03-17T16:44:37.2635361-06:00||;True|2025-03-16T17:41:49.8872503-06:00||;True|2025-03-15T16:35:03.4526526-06:00||;False|2025-03-15T16:34:29.9048362-06:00||;True|2025-03-15T14:31:48.4456092-06:00||;False|2025-03-15T14:09:03.5353530-06:00||;False|2025-03-15T14:06:33.9478532-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -21,16 +21,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/03/2022 10:10:20</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.deps.json">
-      <publishTime>03/17/2025 16:46:52</publishTime>
+      <publishTime>03/20/2025 13:56:25</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.dll">
-      <publishTime>03/17/2025 16:46:52</publishTime>
+      <publishTime>03/20/2025 13:56:25</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.exe">
-      <publishTime>03/17/2025 16:46:52</publishTime>
+      <publishTime>03/20/2025 13:56:25</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.pdb">
-      <publishTime>03/17/2025 16:46:52</publishTime>
+      <publishTime>03/20/2025 13:56:25</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.runtimeconfig.json">
       <publishTime>03/15/2025 13:54:45</publishTime>
@@ -102,7 +102,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>03/17/2025 16:46:52</publishTime>
+      <publishTime>03/20/2025 13:56:25</publishTime>
     </File>
   </ItemGroup>
 </Project>

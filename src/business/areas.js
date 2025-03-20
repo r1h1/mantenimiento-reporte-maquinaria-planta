@@ -203,41 +203,27 @@ const cargarTodasLasFuncionesGet = function () {
 }
 
 
-// Carga de JavaScript al cargar la página
-document.addEventListener("DOMContentLoaded", async () => {
-    try {
-        if (!validarSesion()) return;
-        await manejarValidacionToken();
-        inicializarEventos();
-    } catch (error) {
-        console.error("Error en la inicialización:", error);
-    }
-});
-
-const validarSesion = () => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-        redirigirA401();
-        return false;
-    }
-    return true;
+const redirigirA401 = () => {
+    window.location.href = "../../../src/views/pages/401.html";
 };
 
-const manejarValidacionToken = async () => {
-    const token = sessionStorage.getItem("token");
-    const esValido = await verificarToken(token);
-    if (!esValido) {
-        sessionStorage.removeItem("token");
-        redirigirA401();
+const manejarGuardarArea = () => {
+    const idArea = document.getElementById("idArea")?.value?.trim();
+    if (!idArea || isNaN(idArea)) {
+        postAreas();
     } else {
-        cargarTodasLasFuncionesGet();
+        putAreas();
     }
 };
+
+const eventos = [
+    { id: "guardarArea", callback: manejarGuardarArea },
+    { id: "limpiarArea", callback: limpiar },
+    { id: "closeSession", callback: closeSession }
+];
 
 const inicializarEventos = () => {
-    asignarEvento("guardarArea", manejarGuardarArea);
-    asignarEvento("limpiarArea", limpiar);
-    asignarEvento("closeSession", closeSession);
+    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
 };
 
 const asignarEvento = (idElemento, callback) => {
@@ -247,11 +233,33 @@ const asignarEvento = (idElemento, callback) => {
     }
 };
 
-const manejarGuardarArea = () => {
-    const idArea = document.getElementById("idArea")?.value.trim();
-    idArea ? putAreas() : postAreas();
+const manejarValidacionToken = async () => {
+    try {
+        const token = sessionStorage.getItem("token");
+        if (!token || token === "null" || token === "undefined") {
+            redirigirA401();
+            return;
+        }
+
+        const esValido = await verificarToken(token);
+        if (!esValido) {
+            sessionStorage.removeItem("token");
+            redirigirA401();
+        } else {
+            cargarTodasLasFuncionesGet();
+        }
+    } catch (error) {
+        console.error("Error al validar el token:", error);
+        sessionStorage.removeItem("token");
+        redirigirA401();
+    }
 };
 
-const redirigirA401 = () => {
-    window.location.href = "../../../src/views/pages/401.html";
-};
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        await manejarValidacionToken();
+        inicializarEventos();
+    } catch (error) {
+        console.error("Error en la inicialización:", error);
+    }
+});

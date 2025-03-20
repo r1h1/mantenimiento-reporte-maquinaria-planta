@@ -101,5 +101,33 @@ namespace mantoMaquinariaPlanta.Data
             }
             return nuevoId;
         }
+
+        // Editar la contraseña de un usuario
+        public async Task<bool> EditarClave(int idUsuario, string usuario, string nuevaClave)
+        {
+            using (var con = new SqlConnection(_conexion))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_ActualizarClaveAuth", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Encriptar la nueva clave antes de enviarla al SP
+                string claveHasheada = BCrypt.Net.BCrypt.HashPassword(nuevaClave);
+
+                cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                cmd.Parameters.AddWithValue("@Usuario", usuario);
+                cmd.Parameters.AddWithValue("@ClaveHasheada", claveHasheada);
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        int filasAfectadas = reader.GetInt32(0);
+                        return filasAfectadas > 0;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

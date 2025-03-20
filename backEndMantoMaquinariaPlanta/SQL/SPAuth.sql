@@ -98,6 +98,25 @@ BEGIN
 END;
 
 -- =============================================
+-- Actualizar la contraseña de un usuario en Auth
+-- =============================================
+CREATE PROCEDURE sp_ActualizarClaveAuth
+    @IdUsuario INT,
+    @Usuario NVARCHAR(500),
+    @ClaveHasheada NVARCHAR(500) -- La clave ya debe venir hasheada con bcrypt
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Auth
+    SET Clave = @ClaveHasheada
+    WHERE IdUsuario = @IdUsuario AND Usuario = @Usuario;
+
+    SELECT @@ROWCOUNT AS FilasAfectadas;
+END;
+
+
+-- =============================================
 -- Eliminar un registro de autenticación de forma lógica (desactivarlo)
 -- =============================================
 CREATE PROCEDURE sp_EliminarAuth

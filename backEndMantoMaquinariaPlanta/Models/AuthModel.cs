@@ -16,4 +16,12 @@
         public string Usuario { get; set; } = null!;
         public string Clave { get; set; } = null!;
     }
+
+    public class CambiarClaveRequest
+    {
+        public int IdUsuario { get; set; }
+        public string Usuario { get; set; }
+        public string NuevaClave { get; set; }
+    }
+
 }

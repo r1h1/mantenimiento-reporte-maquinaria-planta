@@ -40,6 +40,8 @@ namespace mantoMaquinariaPlanta.Data
                             Direccion = reader["Direccion"] as string,
                             CorreoElectronico = reader.GetString("CorreoElectronico"),
                             IdArea = reader["IdArea"] as int?,
+                            Usuario = reader["Usuario"] as string,  // Puede ser null
+                            IdRol = reader["IdRol"] as int?,  // Puede ser null
                             Estado = reader.GetBoolean("Estado")
                         });
                     }
@@ -73,41 +75,14 @@ namespace mantoMaquinariaPlanta.Data
                             Direccion = reader["Direccion"] as string,
                             CorreoElectronico = reader.GetString("CorreoElectronico"),
                             IdArea = reader["IdArea"] as int?,
+                            Usuario = reader["Usuario"] as string,
+                            IdRol = reader["IdRol"] as int?,
                             Estado = reader.GetBoolean("Estado")
                         };
                     }
                 }
             }
             return usuario;
-        }
-
-        // Crear un usuario y devolver su ID
-        public async Task<int> Crear(Usuarios usuario)
-        {
-            int nuevoId = 0;
-
-            using (var con = new SqlConnection(_conexion))
-            {
-                await con.OpenAsync();
-                SqlCommand cmd = new SqlCommand("sp_CrearUsuario", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@NombreCompleto", usuario.NombreCompleto);
-                cmd.Parameters.AddWithValue("@TelefonoPersonal", (object)usuario.TelefonoPersonal ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@TelefonoCorporativo", (object)usuario.TelefonoCorporativo ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@Direccion", (object)usuario.Direccion ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@CorreoElectronico", usuario.CorreoElectronico);
-                cmd.Parameters.AddWithValue("@IdArea", (object)usuario.IdArea ?? DBNull.Value);
-
-                using (var reader = await cmd.ExecuteReaderAsync())
-                {
-                    if (await reader.ReadAsync())
-                    {
-                        nuevoId = reader.GetInt32(0);
-                    }
-                }
-            }
-            return nuevoId;
         }
 
         // Editar un usuario
@@ -127,6 +102,8 @@ namespace mantoMaquinariaPlanta.Data
                 cmd.Parameters.AddWithValue("@CorreoElectronico", usuario.CorreoElectronico);
                 cmd.Parameters.AddWithValue("@IdArea", (object)usuario.IdArea ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Estado", usuario.Estado);
+                cmd.Parameters.AddWithValue("@Usuario", (object)usuario.Usuario ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@IdRol", (object)usuario.IdRol ?? DBNull.Value);
 
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
@@ -140,7 +117,7 @@ namespace mantoMaquinariaPlanta.Data
             return false;
         }
 
-        // Eliminar (desactivar) un usuario
+        // Eliminar (desactivar) un usuario en Usuarios y Auth
         public async Task<bool> Eliminar(int id)
         {
             using (var con = new SqlConnection(_conexion))

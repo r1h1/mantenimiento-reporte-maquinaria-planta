@@ -69,6 +69,53 @@ namespace mantoMaquinariaPlanta.Controllers
             });
         }
 
+        // POST: api/Auth/Registrar - Registro de usuario
+        [HttpPost("Registrar")]
+        public async Task<IActionResult> Registrar([FromBody] Auth usuario)
+        {
+            if (string.IsNullOrEmpty(usuario.Usuario) || string.IsNullOrEmpty(usuario.Clave))
+                return BadRequest(new { message = "Usuario y contraseña son obligatorios." });
+
+            // Verificar si el usuario ya existe
+            var usuarioExistente = await _authData.ValidarUsuario(usuario.Usuario);
+            if (usuarioExistente != null)
+                return Conflict(new { message = "El usuario ya existe." });
+
+            // Encriptar la contraseña antes de almacenarla
+            usuario.Clave = BCrypt.Net.BCrypt.HashPassword(usuario.Clave);
+
+            int nuevoId = await _authData.Registrar(usuario);
+
+            if (nuevoId > 0)
+                return Ok(new { code = 201, message = "Usuario registrado con éxito.", id = nuevoId });
+
+            return StatusCode(500, new { message = "Error al registrar el usuario." });
+        }
+
+        // PUT: api/Auth/CambiarClave - Cambiar contraseña
+        [HttpPut("CambiarClave")]
+        [Authorize]
+        public async Task<IActionResult> CambiarClave([FromBody] CambiarClaveRequest request)
+        {
+            if (string.IsNullOrEmpty(request.Usuario) || string.IsNullOrEmpty(request.NuevaClave) || request.IdUsuario <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos." });
+            }
+
+            var usuarioExistente = await _authData.ValidarUsuario(request.Usuario);
+            if (usuarioExistente == null || usuarioExistente.IdUsuario != request.IdUsuario)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "Usuario no encontrado en Auth." });
+            }
+
+            bool resultado = await _authData.EditarClave(request.IdUsuario, request.Usuario, request.NuevaClave);
+
+            return resultado
+                ? Ok(new { code = 200, isSuccess = true, message = "Contraseña actualizada correctamente." })
+                : StatusCode(500, new { code = 500, isSuccess = false, message = "Error al actualizar la contraseña." });
+        }
+
+
         // GET: api/Auth/ValidarToken - Verifica si el token es válido
         [HttpGet("ValidarToken")]
         [Authorize]

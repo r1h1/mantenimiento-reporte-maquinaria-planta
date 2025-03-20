@@ -26,11 +26,13 @@ AS
 BEGIN
     SET NOCOUNT ON;
     
-    SELECT IdUsuario, NombreCompleto, TelefonoPersonal, TelefonoCorporativo, Direccion, CorreoElectronico, IdArea, Estado
-    FROM Usuarios
-    WHERE Estado = 1; -- Solo usuarios activos
+    SELECT u.IdUsuario, u.NombreCompleto, u.TelefonoPersonal, u.TelefonoCorporativo, 
+           u.Direccion, u.CorreoElectronico, u.IdArea, 
+           a.Usuario, a.IdRol, u.Estado
+    FROM Usuarios u
+    LEFT JOIN Auth a ON a.IdUsuario = u.IdUsuario 
+    WHERE u.Estado = 1;
 END;
-
 
 -- =============================================
 -- Obtener un usuario por ID
@@ -41,9 +43,12 @@ AS
 BEGIN
     SET NOCOUNT ON;
     
-    SELECT IdUsuario, NombreCompleto, TelefonoPersonal, TelefonoCorporativo, Direccion, CorreoElectronico, IdArea, Estado
-    FROM Usuarios
-    WHERE IdUsuario = @IdUsuario;
+    SELECT u.IdUsuario, u.NombreCompleto, u.TelefonoPersonal, u.TelefonoCorporativo, 
+           u.Direccion, u.CorreoElectronico, u.IdArea, 
+           a.Usuario, a.IdRol, u.Estado
+    FROM Usuarios u
+    LEFT JOIN Auth a ON a.IdUsuario = u.IdUsuario 
+    WHERE u.IdUsuario = @IdUsuario;
 END;
 
 -- =============================================
@@ -57,11 +62,14 @@ CREATE PROCEDURE sp_ActualizarUsuario
     @Direccion NVARCHAR(255) = NULL,
     @CorreoElectronico NVARCHAR(255),
     @IdArea INT = NULL,
-    @Estado BIT
+    @Estado BIT,
+    @Usuario NVARCHAR(255) = NULL,
+    @IdRol INT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
     
+    -- Actualizar Usuarios
     UPDATE Usuarios
     SET NombreCompleto = @NombreCompleto,
         TelefonoPersonal = @TelefonoPersonal,
@@ -71,6 +79,24 @@ BEGIN
         IdArea = @IdArea,
         Estado = @Estado
     WHERE IdUsuario = @IdUsuario;
+
+    -- Actualizar Auth si el usuario ya existe en la tabla Auth
+    IF EXISTS (SELECT 1 FROM Auth WHERE IdUsuario = @IdUsuario)
+    BEGIN
+        UPDATE Auth
+        SET Usuario = ISNULL(@Usuario, Usuario),  -- Solo actualizar si se envía un nuevo usuario
+            IdRol = ISNULL(@IdRol, IdRol)  -- Solo actualizar si se envía un nuevo rol
+        WHERE IdUsuario = @IdUsuario;
+    END
+    ELSE
+    BEGIN
+        -- Si no existe en Auth y se envía usuario y rol, insertarlo
+        IF @Usuario IS NOT NULL AND @IdRol IS NOT NULL
+        BEGIN
+            INSERT INTO Auth (IdUsuario, Usuario, IdRol)
+            VALUES (@IdUsuario, @Usuario, @IdRol);
+        END
+    END
 
     SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
@@ -84,9 +110,28 @@ AS
 BEGIN
     SET NOCOUNT ON;
     
+    -- Desactivar al usuario en la tabla Usuarios
     UPDATE Usuarios
     SET Estado = 0
     WHERE IdUsuario = @IdUsuario;
 
+    -- Desactivar al usuario en la tabla Auth
+    UPDATE Auth
+    SET Estado = 0
+    WHERE IdUsuario = @IdUsuario;
+
+    -- Retornar la cantidad de filas afectadas
     SELECT @@ROWCOUNT AS FilasAfectadas;
 END;
+
+
+
+
+
+
+
+
+
+
+
+
