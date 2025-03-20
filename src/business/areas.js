@@ -236,20 +236,22 @@ const asignarEvento = (idElemento, callback) => {
 const manejarValidacionToken = async () => {
     try {
         const token = sessionStorage.getItem("token");
+
         if (!token || token === "null" || token === "undefined") {
-            redirigirA401();
-            return;
+            return redirigirA401();
         }
 
         const esValido = await verificarToken(token);
+
         if (!esValido) {
             sessionStorage.removeItem("token");
-            redirigirA401();
-        } else {
+            return redirigirA401();
+        }
+        else{
             cargarTodasLasFuncionesGet();
         }
     } catch (error) {
-        console.error("Error al validar el token:", error);
+        console.error("Error inesperado en manejarValidacionToken:", error);
         sessionStorage.removeItem("token");
         redirigirA401();
     }
