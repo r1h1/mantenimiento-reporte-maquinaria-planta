@@ -1,5 +1,5 @@
 import { verificarToken } from '../utils/tokenValidation.js';
-import { API_AREAS, API_PLANTAS, API_TIPOMAQUINAS } from '../config/settings.js';
+import { API_AREAS, API_PLANTAS, API_TIPOMAQUINAS, API_MAQUINAS } from '../config/settings.js';
 import { sendData, fetchData } from '../data/apiMethods.js';
 import { showError, showSuccess } from '../utils/sweetAlert.js';
 
@@ -83,6 +83,48 @@ const obtenerTipoMaquinas = async () => {
     }
 };
 
+const obtenerMaquinas = async () => {
+    try {
+        const response = await fetchData(API_MAQUINAS, "GET", obtenerHeaders());
+
+        if (response) {
+            // Inicializar DataTable con los nombres correctos de las columnas
+            $('#tabla-datos-dinamicos').DataTable({
+                destroy: true, // Permite reinicializar la tabla sin errores
+                data: response,   // Carga los datos dinámicos
+                columns: [
+                    { data: "idMaquina" },    
+                    { data: "nombreCodigo" },
+                    { data: "idTipoMaquina" },
+                    { data: "idArea" },   
+                    { data: "idPlanta" },     
+                    {
+                        data: "estado",
+                        render: function(data, type, row) {
+                            return data ? 'Activa' : 'Inactiva';
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return `
+                        <button onclick="editarAreas(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-warning">Editar</button>
+                        <button onclick="eliminarAreas(${row.idMaquina})" class="btn btn-danger">Eliminar</button>
+                    `;
+                        }
+                    }
+                ]
+            });
+        }
+        else {
+            return;
+        }
+    } catch (error) {
+        showError(error || "Error al obtener las áreas.");
+        return;
+    }
+}
+
 
 const limpiar = function () {
 }
@@ -91,6 +133,7 @@ const cargarTodasLasFuncionesGet = function () {
     obtenerAreas();
     obtenerPlantas();
     obtenerTipoMaquinas();
+    obtenerMaquinas();
     //limpiar();
 }
 
