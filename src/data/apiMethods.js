@@ -13,7 +13,8 @@ async function fetchData(url, method, headers = {}) {
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
-            ...headers, // Agrega cualquier otro header adicional que se pase
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            ...headers
         },
     });
 
@@ -54,7 +55,8 @@ async function sendData(url, method, data, headers = {}) {
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
-            ...headers, // Agrega cualquier otro header adicional que se pase
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            ...headers
         },
         body: JSON.stringify(data),
     });
@@ -83,7 +85,8 @@ async function fetchDataToken(url, method, headers = {}) {
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
-            ...headers // Asegurar que los headers personalizados se incluyan correctamente
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            ...headers
         },
     });
 

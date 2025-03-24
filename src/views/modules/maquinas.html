@@ -49,10 +49,14 @@
                 <div class="col-md-12">
                     <div class="formulario card border-1">
                         <h5 class="card-header">Gestión</h5>
-                        <form class="row g-3 card-body p-4">
+                        <div class="row g-3 card-body p-4">
+                            <div class="col-md-12 col-lg-12" hidden>
+                                <label for="inputEmail4" class="form-label">ID</label>
+                                <input type="number" class="form-control" id="idMaquina">
+                            </div>
                             <div class="col-md-12 col-lg-8">
                                 <label for="inputEmail4" class="form-label">Nombre/Código</label>
-                                <input type="email" class="form-control" id="nombreCodigo">
+                                <input type="text" class="form-control" id="nombreCodigo">
                             </div>
                             <div class="col-md-12 col-lg-4">
                                 <label for="inputState" class="form-label">Tipo de Máquina</label>
@@ -78,17 +82,17 @@
                                 <label for="inputState" class="form-label">Estado</label>
                                 <select id="estado" class="form-select">
                                     <option selected>Selecciona...</option>
-                                    <option value="1">Activa</option>
-                                    <option value="0">Inactiva</option>
+                                    <option value="true">Activa</option>
+                                    <option value="false">Inactiva</option>
                                 </select>
                             </div>
                             <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Guardar</a>
+                                <button class="btn btn-danger w-100" id="guardarButton">Guardar/Editar</button>
                             </div>
                             <div class="col-md-12 col-lg-6">
-                                <a class="btn btn-danger w-100">Limpiar</a>
+                                <button class="btn btn-danger w-100" id="limpiarButton">Limpiar</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
 

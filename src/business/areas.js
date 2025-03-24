@@ -173,8 +173,6 @@ window.eliminarAreas = async (idArea) => {
         try {
             const response = await fetchData(`${API_AREAS}/${idArea}`, "DELETE", obtenerHeaders());
 
-            console.log("Respuesta del API:", response); // 📌 Agregar este log
-
             if (response && response.code === 200) {
                 showSuccess("Área eliminada correctamente.");
                 cargarTodasLasFuncionesGet();

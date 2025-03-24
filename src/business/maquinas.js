@@ -93,14 +93,14 @@ const obtenerMaquinas = async () => {
                 destroy: true, // Permite reinicializar la tabla sin errores
                 data: response,   // Carga los datos dinámicos
                 columns: [
-                    { data: "idMaquina" },    
+                    { data: "idMaquina" },
                     { data: "nombreCodigo" },
                     { data: "idTipoMaquina" },
-                    { data: "idArea" },   
-                    { data: "idPlanta" },     
+                    { data: "idArea" },
+                    { data: "idPlanta" },
                     {
                         data: "estado",
-                        render: function(data, type, row) {
+                        render: function (data, type, row) {
                             return data ? 'Activa' : 'Inactiva';
                         }
                     },
@@ -108,8 +108,8 @@ const obtenerMaquinas = async () => {
                         data: null,
                         render: function (data, type, row) {
                             return `
-                        <button onclick="editarAreas(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-warning">Editar</button>
-                        <button onclick="eliminarAreas(${row.idMaquina})" class="btn btn-danger">Eliminar</button>
+                        <button onclick="editarMaquina(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-warning">Editar</button>
+                        <button onclick="eliminarMaquina(${row.idMaquina})" class="btn btn-danger">Eliminar</button>
                     `;
                         }
                     }
@@ -126,7 +126,120 @@ const obtenerMaquinas = async () => {
 }
 
 
+const postMaquina = async () => {
+    try {
+        const idMaquina = 0;
+        const nombreCodigo = document.getElementById("nombreCodigo").value;
+        const idTipoMaquina = document.getElementById("tipoMaquina").value;
+        const idArea = document.getElementById("area").value;
+        const idPlanta = document.getElementById("planta").value;
+        const estado = document.getElementById("estado").value === "true";
+
+        if (!nombreCodigo || !idTipoMaquina || !idArea || !idPlanta || !estado) {
+            showError("Todos los campos son obligatorios.");
+            return;
+        }
+
+        const data = {
+            idMaquina,
+            nombreCodigo,
+            idTipoMaquina,
+            idArea,
+            idPlanta,
+            estado
+        };
+
+        const response = await sendData(API_MAQUINAS, "POST", data, obtenerHeaders());
+
+        if (response && response.code === 201) {
+            showSuccess(response.message);
+            cargarTodasLasFuncionesGet();
+        }
+    } catch (error) {
+        showError(error);
+    }
+}
+
+window.editarMaquina = function (row) {
+    document.getElementById("idMaquina").value = row.idMaquina;
+    document.getElementById("nombreCodigo").value = row.nombreCodigo;
+    document.getElementById("tipoMaquina").value = row.idTipoMaquina;
+    document.getElementById("area").value = row.idArea;
+    document.getElementById("planta").value = row.idPlanta;
+    document.getElementById("estado").value = row.estado;
+};
+
+const putMaquina = async () => {
+    try {
+        const idMaquina = document.getElementById("idMaquina").value;
+        const nombreCodigo = document.getElementById("nombreCodigo").value;
+        const idTipoMaquina = document.getElementById("tipoMaquina").value;
+        const idArea = document.getElementById("area").value;
+        const idPlanta = document.getElementById("planta").value;
+        const estado = document.getElementById("estado").value === "true";
+
+        if (!nombreCodigo || !idTipoMaquina || !idArea || !idPlanta || !estado) {
+            showError("Todos los campos son obligatorios.");
+            return;
+        }
+
+        const data = {
+            idMaquina,
+            nombreCodigo,
+            idTipoMaquina,
+            idArea,
+            idPlanta,
+            estado
+        };
+
+        const response = await sendData(API_MAQUINAS, "PUT", data, obtenerHeaders());
+
+        if (response && response.code === 200) {
+            showSuccess('Actualización correcta.');
+            cargarTodasLasFuncionesGet();
+        }
+    } catch (error) {
+        showError(error);
+    }
+};
+
+
+window.eliminarMaquina = async (idMaquina) => {
+    const confirmDelete = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "No podrás revertir esta acción.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+    });
+
+    if (confirmDelete.isConfirmed) {
+        try {
+            const response = await fetchData(`${API_MAQUINAS}/${idMaquina}`, "DELETE", obtenerHeaders());
+
+            if (response && response.code === 200) {
+                showSuccess('Eliminado correcto.');
+                cargarTodasLasFuncionesGet();
+            } else {
+                showError(response.message);
+            }
+        } catch (error) {
+            showError(error);
+        }
+    }
+};
+
+
 const limpiar = function () {
+    document.getElementById("idMaquina").value = '';
+    document.getElementById("nombreCodigo").value = '';
+    document.getElementById("tipoMaquina").selectedIndex = 0;
+    document.getElementById("area").selectedIndex = 0;
+    document.getElementById("planta").selectedIndex = 0;
+    document.getElementById("estado").selectedIndex = 0;
 }
 
 const cargarTodasLasFuncionesGet = function () {
@@ -134,7 +247,7 @@ const cargarTodasLasFuncionesGet = function () {
     obtenerPlantas();
     obtenerTipoMaquinas();
     obtenerMaquinas();
-    //limpiar();
+    limpiar();
 }
 
 
@@ -154,7 +267,7 @@ const manejarValidacionToken = async () => {
             sessionStorage.removeItem("token");
             return redirigirA401();
         }
-        else{
+        else {
             cargarTodasLasFuncionesGet();
         }
     } catch (error) {
@@ -164,10 +277,36 @@ const manejarValidacionToken = async () => {
     }
 };
 
+const manejarGuardar = () => {
+    const idMaquina = document.getElementById("idMaquina")?.value?.trim();
+    if (!idMaquina || isNaN(idMaquina)) {
+        postMaquina();
+    } else {
+        putMaquina();
+    }
+};
+
+const eventos = [
+    { id: "guardarButton", callback: manejarGuardar },
+    { id: "limpiarButton", callback: limpiar },
+    { id: "closeSession", callback: closeSession }
+];
+
+const inicializarEventos = () => {
+    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+};
+
+const asignarEvento = (idElemento, callback) => {
+    const elemento = document.getElementById(idElemento);
+    if (elemento) {
+        elemento.addEventListener("click", callback);
+    }
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         await manejarValidacionToken();
-        //inicializarEventos();
+        inicializarEventos();
     } catch (error) {
         console.error("Error en la inicialización:", error);
     }
