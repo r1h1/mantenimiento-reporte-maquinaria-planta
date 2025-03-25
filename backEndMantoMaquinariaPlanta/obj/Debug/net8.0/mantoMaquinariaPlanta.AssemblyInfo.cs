@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mantoMaquinariaPlanta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2ea6a0bfa5e634e99dbf8c92d4b02024969883d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+94347489ba6e8a733fa53abf2e9a7ba3270d0dd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("mantoMaquinariaPlanta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mantoMaquinariaPlanta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

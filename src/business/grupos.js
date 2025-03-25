@@ -1,4 +1,7 @@
 import { verificarToken } from '../utils/tokenValidation.js';
+import { API_AREAS, API_USUARIOS, API_GRUPOS, API_GRUPOUSUARIOS } from '../config/settings.js';
+import { sendData, fetchData } from '../data/apiMethods.js';
+import { showError, showSuccess } from '../utils/sweetAlert.js';
 
 const closeSession = function () {
     try {
@@ -9,30 +12,124 @@ const closeSession = function () {
     }
 };
 
-document.addEventListener("DOMContentLoaded", async () => {
+const obtenerHeaders = () => {
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+        closeSession();
+        return null;
+    }
+    return { "Authorization": `Bearer ${token}` };
+};
+
+
+const obtenerAreas = async () => {
     try {
-        const token = sessionStorage.getItem("token"); // Obtener token del almacenamiento
-        const closeSessionButton = document.getElementById("closeSession");
+        const selectArea = document.getElementById("area");
+        selectArea.innerHTML = `<option value="0" selected>Selecciona...</option>`;
+        const response = await fetchData(API_AREAS, "GET", obtenerHeaders());
 
-        if (!token) {
-            window.location.href = "../../../src/views/pages/401.html";
-            return;
+        if (response) {
+            response.forEach(area => {
+                const option = document.createElement("option");
+                option.value = area.idArea;
+                option.textContent = area.nombre;
+                selectArea.appendChild(option);
+            });
         }
+    } catch (error) {
+        showError(error);
+    }
+};
 
-        const esValido = await verificarToken(token); // Validar token
+
+const obtenerEmpleados = async () => {
+    try {
+        const selectEmpleados = document.getElementById("empleado");
+        selectEmpleados.innerHTML = `<option value="0" selected>Selecciona...</option>`;
+        const response = await fetchData(API_USUARIOS, "GET", obtenerHeaders());
+
+        if (response) {
+            response.forEach(area => {
+                const option = document.createElement("option");
+                option.value = area.idUsuario;
+                option.textContent = area.nombreCompleto;
+                selectEmpleados.appendChild(option);
+            });
+        }
+    } catch (error) {
+        showError(error);
+    }
+};
+
+
+
+const limpiar = function () {
+
+}
+
+const cargarTodasLasFuncionesGet = function () {
+    obtenerAreas();
+    obtenerEmpleados();
+}
+
+
+const redirigirA401 = () => {
+    window.location.href = "../../../src/views/pages/401.html";
+};
+
+const manejarValidacionToken = async () => {
+    try {
+        const token = sessionStorage.getItem("token");
+        if (!token || token === "null" || token === "undefined") {
+            return redirigirA401();
+        }
+        const esValido = await verificarToken(token);
 
         if (!esValido) {
             sessionStorage.removeItem("token");
-            window.location.href = "../../../src/views/pages/401.html";
-            return;
+            return redirigirA401();
         }
-
-        if (closeSessionButton) {
-            closeSessionButton.addEventListener("click", closeSession);
-        } else {
-            return false;
+        else {
+            cargarTodasLasFuncionesGet();
         }
     } catch (error) {
-        return false;
+        console.error("Error inesperado en manejarValidacionToken:", error);
+        sessionStorage.removeItem("token");
+        redirigirA401();
+    }
+};
+
+const manejarGuardar = () => {
+    const idMaquina = document.getElementById("idMaquina")?.value?.trim();
+    if (!idMaquina || isNaN(idMaquina)) {
+        postMaquina();
+    } else {
+        putMaquina();
+    }
+};
+
+const eventos = [
+    { id: "guardarButton", callback: manejarGuardar },
+    { id: "limpiarButton", callback: limpiar },
+    { id: "closeSession", callback: closeSession }
+];
+
+const inicializarEventos = () => {
+    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+};
+
+const asignarEvento = (idElemento, callback) => {
+    const elemento = document.getElementById(idElemento);
+    if (elemento) {
+        elemento.addEventListener("click", callback);
+    }
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        await manejarValidacionToken();
+        inicializarEventos();
+    } catch (error) {
+        console.error("Error en la inicialización:", error);
     }
 });

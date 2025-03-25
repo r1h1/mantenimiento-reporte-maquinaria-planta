@@ -41,6 +41,33 @@ namespace mantoMaquinariaPlanta.Controllers
             return Ok(usuario);
         }
 
+
+        // POST: api/Usuarios - Crear usuario con Auth
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Crear([FromBody] UsuarioConAuth modelo)
+        {
+            if (modelo == null || modelo.Usuario == null || modelo.Auth == null)
+                return BadRequest(new { code = 400, isSuccess = false, message = "Datos inválidos." });
+
+            try
+            {
+                var authData = new AuthData(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build());
+                var creado = await _data.CrearUsuarioConAuth(modelo, authData);
+
+                if (creado)
+                    return Created("", new { code = 201, isSuccess = true, message = "Usuario y credenciales creados correctamente." });
+                else
+                    return StatusCode(500, new { code = 500, isSuccess = false, message = "No se pudo crear el usuario." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { code = 500, isSuccess = false, message = "Error interno del servidor.", detalle = ex.Message });
+            }
+        }
+
+
+
         // PUT: api/Usuarios - Editar un usuario
         [HttpPut]
         [Authorize]

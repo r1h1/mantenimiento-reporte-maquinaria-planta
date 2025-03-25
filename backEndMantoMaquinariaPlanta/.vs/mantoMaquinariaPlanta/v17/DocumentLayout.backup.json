@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\data\\authdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:data\\authdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\data\\usuariosdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:data\\usuariosdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\models\\authmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:models\\authmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|c:\\users\\pc\\desktop\\danielbackup\\controlymantoquipoindustrial\\frontend\\backendmantomaquinariaplanta\\models\\usuariosmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E0FD1833-70C1-4100-8C4B-56E62053EFBA}|mantoMaquinariaPlanta.csproj|solutionrelative:models\\usuariosmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,41 +26,41 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AuthModel.cs",
-              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Models\\AuthModel.cs",
-              "RelativeDocumentMoniker": "Models\\AuthModel.cs",
-              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Models\\AuthModel.cs",
-              "RelativeToolTip": "Models\\AuthModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "UsuariosData.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Data\\UsuariosData.cs",
+              "RelativeDocumentMoniker": "Data\\UsuariosData.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Data\\UsuariosData.cs",
+              "RelativeToolTip": "Data\\UsuariosData.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAmwKAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T19:46:24.283Z",
+              "WhenOpened": "2025-03-25T23:38:03.915Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthData.cs",
-              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Data\\AuthData.cs",
-              "RelativeDocumentMoniker": "Data\\AuthData.cs",
-              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Data\\AuthData.cs",
-              "RelativeToolTip": "Data\\AuthData.cs",
-              "ViewState": "AgIAAFgAAAAAAAAAAAAYwHYAAABNAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "UsuariosModel.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Models\\UsuariosModel.cs",
+              "RelativeDocumentMoniker": "Models\\UsuariosModel.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Models\\UsuariosModel.cs",
+              "RelativeToolTip": "Models\\UsuariosModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T19:43:35.828Z",
+              "WhenOpened": "2025-03-25T23:38:06.036Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Controllers\\AuthController.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAuwF0AAAAAAAAAAAAAAA==",
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\DanielBackup\\CONTROLYMANTOQUIPOINDUSTRIAL\\frontEnd\\backEndMantoMaquinariaPlanta\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwEIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T19:43:34.139Z",
+              "WhenOpened": "2025-03-25T23:38:02.84Z",
               "EditorCaption": ""
             }
           ]

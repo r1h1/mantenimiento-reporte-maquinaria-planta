@@ -85,6 +85,82 @@ namespace mantoMaquinariaPlanta.Data
             return usuario;
         }
 
+
+        public async Task<bool> CrearUsuarioConAuth(UsuarioConAuth modelo, AuthData authData)
+        {
+            using (var con = new SqlConnection(_conexion))
+            {
+                await con.OpenAsync();
+                using (var tran = con.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Insertar en Usuarios
+                        SqlCommand cmdUsuario = new SqlCommand("sp_CrearUsuario", con, tran);
+                        cmdUsuario.CommandType = CommandType.StoredProcedure;
+
+                        cmdUsuario.Parameters.AddWithValue("@NombreCompleto", modelo.Usuario.NombreCompleto);
+                        cmdUsuario.Parameters.AddWithValue("@TelefonoPersonal", (object)modelo.Usuario.TelefonoPersonal ?? DBNull.Value);
+                        cmdUsuario.Parameters.AddWithValue("@TelefonoCorporativo", (object)modelo.Usuario.TelefonoCorporativo ?? DBNull.Value);
+                        cmdUsuario.Parameters.AddWithValue("@Direccion", (object)modelo.Usuario.Direccion ?? DBNull.Value);
+                        cmdUsuario.Parameters.AddWithValue("@CorreoElectronico", modelo.Usuario.CorreoElectronico);
+                        cmdUsuario.Parameters.AddWithValue("@IdArea", (object)modelo.Usuario.IdArea ?? DBNull.Value);
+
+                        int idUsuario = 0;
+                        using (var reader = await cmdUsuario.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                idUsuario = reader.GetInt32(0);
+                            }
+                        }
+
+                        if (idUsuario <= 0)
+                        {
+                            tran.Rollback();
+                            return false;
+                        }
+
+                        // 2. Insertar en Auth
+                        modelo.Auth.IdUsuario = idUsuario;
+                        modelo.Auth.Clave = BCrypt.Net.BCrypt.HashPassword(modelo.Auth.Clave); // Encriptar clave
+
+                        SqlCommand cmdAuth = new SqlCommand("sp_CrearAuth", con, tran);
+                        cmdAuth.CommandType = CommandType.StoredProcedure;
+
+                        cmdAuth.Parameters.AddWithValue("@Usuario", modelo.Auth.Usuario);
+                        cmdAuth.Parameters.AddWithValue("@ClaveHasheada", modelo.Auth.Clave);
+                        cmdAuth.Parameters.AddWithValue("@IdRol", modelo.Auth.IdRol);
+                        cmdAuth.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                        int idAuth = 0;
+                        using (var reader = await cmdAuth.ExecuteReaderAsync())
+                        {
+                            if (await reader.ReadAsync())
+                            {
+                                idAuth = reader.GetInt32(0);
+                            }
+                        }
+
+                        if (idAuth <= 0)
+                        {
+                            tran.Rollback();
+                            return false;
+                        }
+
+                        tran.Commit();
+                        return true;
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
         // Editar un usuario
         public async Task<bool> Editar(Usuarios usuario)
         {
