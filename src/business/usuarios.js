@@ -1,7 +1,7 @@
-import { verificarToken } from '../utils/tokenValidation.js';
-import { API_USUARIOS, API_AREAS, API_ROL, API_AUTH_CAMBIARCLAVE } from '../config/settings.js';
-import { sendData, fetchData } from '../data/apiMethods.js';
-import { showError, showSuccess } from '../utils/sweetAlert.js';
+import {verificarToken} from '../utils/tokenValidation.js';
+import {API_USUARIOS, API_AREAS, API_ROL, API_AUTH_CAMBIARCLAVE} from '../config/settings.js';
+import {sendData, fetchData} from '../data/apiMethods.js';
+import {showError, showSuccess} from '../utils/sweetAlert.js';
 
 const closeSession = function () {
     try {
@@ -18,7 +18,7 @@ const obtenerHeaders = () => {
         closeSession();
         return null;
     }
-    return { "Authorization": `Bearer ${token}` };
+    return {"Authorization": `Bearer ${token}`};
 };
 
 const obtenerUsuarios = async () => {
@@ -31,15 +31,15 @@ const obtenerUsuarios = async () => {
                 destroy: true, // Permite reinicializar la tabla sin errores
                 data: response,   // Carga los datos dinámicos
                 columns: [
-                    { data: "idUsuario" },
-                    { data: "nombreCompleto" },
-                    { data: "telefonoPersonal" },
-                    { data: "telefonoCorporativo" },
-                    { data: "direccion" },
-                    { data: "correoElectronico" },
-                    { data: "idArea" },
-                    { data: "usuario" },
-                    { data: "idRol" },
+                    {data: "idUsuario"},
+                    {data: "nombreCompleto"},
+                    {data: "telefonoPersonal"},
+                    {data: "telefonoCorporativo"},
+                    {data: "direccion"},
+                    {data: "correoElectronico"},
+                    {data: "idArea"},
+                    {data: "usuario"},
+                    {data: "idRol"},
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -52,8 +52,7 @@ const obtenerUsuarios = async () => {
                     }
                 ]
             });
-        }
-        else {
+        } else {
             return;
         }
     } catch (error) {
@@ -217,7 +216,7 @@ const putCambiarClave = async () => {
     try {
         const idUsuario = document.getElementById("idUsuarioEditar").value;
         const usuario = document.getElementById("usuarioEditar").value;
-        const nuevaClave = document.getElementById("claveEditar").value;
+        const nuevaClave = document.getElementById("claveEditar").value.trim();
 
         if (!idUsuario || !usuario || !nuevaClave) {
             showError("Todos los campos son obligatorios.");
@@ -313,11 +312,11 @@ const manejarGuardarUsuario = () => {
 
 
 const eventos = [
-    { id: "closeSession", callback: closeSession },
-    { id: "limpiar", callback: limpiar },
-    { id: "putCambiarClave", callback: putCambiarClave },
-    { id: "guardarEditar", callback: manejarGuardarUsuario },
-    { id: "guardarCambioClave", callback: putCambiarClave }
+    {id: "closeSession", callback: closeSession},
+    {id: "limpiar", callback: limpiar},
+    {id: "putCambiarClave", callback: putCambiarClave},
+    {id: "guardarEditar", callback: manejarGuardarUsuario},
+    {id: "guardarCambioClave", callback: putCambiarClave}
 ];
 
 
@@ -360,7 +359,7 @@ const manejarValidacionToken = async () => {
 
 
 const inicializarEventos = () => {
-    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+    eventos.forEach(({id, callback}) => asignarEvento(id, callback));
 };
 
 

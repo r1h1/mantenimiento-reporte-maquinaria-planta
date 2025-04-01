@@ -48,10 +48,18 @@ namespace mantoMaquinariaPlanta.Controllers
             }
 
             bool respuesta = await _data.AgregarUsuarioAGrupo(grupoUsuario);
-            return respuesta
-                ? StatusCode(StatusCodes.Status201Created, new { code = 201, isSuccess = true, message = "Usuario agregado al grupo exitosamente" })
-                : StatusCode(StatusCodes.Status409Conflict, new { code = 409, isSuccess = false, message = "No se pudo agregar el usuario al grupo" });
+
+            if (respuesta)
+            {
+                return StatusCode(StatusCodes.Status201Created, new { code = 201, isSuccess = true, message = "Usuario agregado al grupo exitosamente" });
+            }
+            else
+            {
+                // Si el usuario ya existe, devolvemos 200 OK
+                return Ok(new { code = 200, isSuccess = true, message = "Usuario ya existe en els grupo" });
+            }
         }
+
 
         // DELETE: api/GrupoUsuarios/{idGrupo}/{idUsuario} - Desactivar usuario de un grupo
         [HttpDelete("{idGrupo}/{idUsuario}")]

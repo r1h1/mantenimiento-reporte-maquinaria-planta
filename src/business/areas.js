@@ -1,7 +1,7 @@
-import { verificarToken } from '../utils/tokenValidation.js';
-import { API_AREAS, API_PLANTAS } from '../config/settings.js';
-import { sendData, fetchData } from '../data/apiMethods.js';
-import { showError, showSuccess } from '../utils/sweetAlert.js';
+import {verificarToken} from '../utils/tokenValidation.js';
+import {API_AREAS, API_PLANTAS} from '../config/settings.js';
+import {sendData, fetchData} from '../data/apiMethods.js';
+import {showError, showSuccess} from '../utils/sweetAlert.js';
 
 const closeSession = function () {
     try {
@@ -18,7 +18,8 @@ const obtenerHeaders = () => {
         closeSession();
         return null;
     }
-    return { "Authorization": `Bearer ${token}` };
+    //retorna el token
+    return {"Authorization": `Bearer ${token}`};
 };
 
 const obtenerAreas = async () => {
@@ -31,11 +32,11 @@ const obtenerAreas = async () => {
                 destroy: true, // Permite reinicializar la tabla sin errores
                 data: response,   // Carga los datos dinámicos
                 columns: [
-                    { data: "idArea" },       // Se cambia 'id' por 'idArea'
-                    { data: "nombre" },
-                    { data: "ubicacion" },
-                    { data: "idPlanta" },     // Se cambia 'planta' por 'idPlanta'
-                    { data: "descripcion" },
+                    {data: "idArea"},       // Se cambia 'id' por 'idArea'
+                    {data: "nombre"},
+                    {data: "ubicacion"},
+                    {data: "idPlanta"},     // Se cambia 'planta' por 'idPlanta'
+                    {data: "descripcion"},
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -47,8 +48,7 @@ const obtenerAreas = async () => {
                     }
                 ]
             });
-        }
-        else {
+        } else {
             return;
         }
     } catch (error) {
@@ -215,13 +215,13 @@ const manejarGuardarArea = () => {
 };
 
 const eventos = [
-    { id: "guardarArea", callback: manejarGuardarArea },
-    { id: "limpiarArea", callback: limpiar },
-    { id: "closeSession", callback: closeSession }
+    {id: "guardarArea", callback: manejarGuardarArea},
+    {id: "limpiarArea", callback: limpiar},
+    {id: "closeSession", callback: closeSession}
 ];
 
 const inicializarEventos = () => {
-    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+    eventos.forEach(({id, callback}) => asignarEvento(id, callback));
 };
 
 const asignarEvento = (idElemento, callback) => {
@@ -244,8 +244,7 @@ const manejarValidacionToken = async () => {
         if (!esValido) {
             sessionStorage.removeItem("token");
             return redirigirA401();
-        }
-        else{
+        } else {
             cargarTodasLasFuncionesGet();
         }
     } catch (error) {

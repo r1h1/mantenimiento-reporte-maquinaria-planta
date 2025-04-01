@@ -1,7 +1,7 @@
-import { verificarToken } from '../utils/tokenValidation.js';
-import { API_AREAS, API_PLANTAS, API_TIPOMAQUINAS, API_MAQUINAS } from '../config/settings.js';
-import { sendData, fetchData } from '../data/apiMethods.js';
-import { showError, showSuccess } from '../utils/sweetAlert.js';
+import {verificarToken} from '../utils/tokenValidation.js';
+import {API_AREAS, API_PLANTAS, API_TIPOMAQUINAS, API_MAQUINAS} from '../config/settings.js';
+import {sendData, fetchData} from '../data/apiMethods.js';
+import {showError, showSuccess} from '../utils/sweetAlert.js';
 
 const closeSession = function () {
     try {
@@ -18,7 +18,7 @@ const obtenerHeaders = () => {
         closeSession();
         return null;
     }
-    return { "Authorization": `Bearer ${token}` };
+    return {"Authorization": `Bearer ${token}`};
 };
 
 const obtenerAreas = async () => {
@@ -93,11 +93,11 @@ const obtenerMaquinas = async () => {
                 destroy: true, // Permite reinicializar la tabla sin errores
                 data: response,   // Carga los datos dinámicos
                 columns: [
-                    { data: "idMaquina" },
-                    { data: "nombreCodigo" },
-                    { data: "idTipoMaquina" },
-                    { data: "idArea" },
-                    { data: "idPlanta" },
+                    {data: "idMaquina"},
+                    {data: "nombreCodigo"},
+                    {data: "idTipoMaquina"},
+                    {data: "idArea"},
+                    {data: "idPlanta"},
                     {
                         data: "estado",
                         render: function (data, type, row) {
@@ -115,8 +115,7 @@ const obtenerMaquinas = async () => {
                     }
                 ]
             });
-        }
-        else {
+        } else {
             return;
         }
     } catch (error) {
@@ -266,8 +265,7 @@ const manejarValidacionToken = async () => {
         if (!esValido) {
             sessionStorage.removeItem("token");
             return redirigirA401();
-        }
-        else {
+        } else {
             cargarTodasLasFuncionesGet();
         }
     } catch (error) {
@@ -287,13 +285,13 @@ const manejarGuardar = () => {
 };
 
 const eventos = [
-    { id: "guardarButton", callback: manejarGuardar },
-    { id: "limpiarButton", callback: limpiar },
-    { id: "closeSession", callback: closeSession }
+    {id: "guardarButton", callback: manejarGuardar},
+    {id: "limpiarButton", callback: limpiar},
+    {id: "closeSession", callback: closeSession}
 ];
 
 const inicializarEventos = () => {
-    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+    eventos.forEach(({id, callback}) => asignarEvento(id, callback));
 };
 
 const asignarEvento = (idElemento, callback) => {

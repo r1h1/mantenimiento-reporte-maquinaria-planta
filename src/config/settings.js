@@ -19,9 +19,9 @@ const API_ROL = `${API_URL_BASE}/api/Rol`;
 const API_TIPOMAQUINAS = `${API_URL_BASE}/api/TipoMaquinas`;
 const API_USUARIOS = `${API_URL_BASE}/api/Usuarios`;
 
-export { 
-    API_URL_BASE, 
-    API_AREAS, 
+export {
+    API_URL_BASE,
+    API_AREAS,
     API_ASIGNACIONES,
     API_AUTH_LOGIN,
     API_AUTH_REGISTER,

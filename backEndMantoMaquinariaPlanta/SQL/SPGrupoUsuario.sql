@@ -12,9 +12,9 @@ BEGIN
         SELECT 1 FROM GrupoUsuarios 
         WHERE IdGrupo = @IdGrupo AND IdUsuario = @IdUsuario
     )
-    BEGIN
-        INSERT INTO GrupoUsuarios (IdGrupo, IdUsuario, Estado)
-        VALUES (@IdGrupo, @IdUsuario, 1);
+BEGIN
+    INSERT INTO GrupoUsuarios (IdGrupo, IdUsuario, Estado)
+    VALUES (@IdGrupo, @IdUsuario, 1);
     END;
 END;
 
@@ -26,7 +26,7 @@ CREATE PROCEDURE sp_ObtenerUsuariosDeGrupo
 AS
 BEGIN
     SET NOCOUNT ON;
-    
+
     SELECT GU.IdGrupo, GU.IdUsuario, U.NombreCompleto, U.CorreoElectronico, GU.Estado
     FROM GrupoUsuarios GU
     INNER JOIN Usuarios U ON GU.IdUsuario = U.IdUsuario
@@ -41,7 +41,7 @@ CREATE PROCEDURE sp_ObtenerGruposDeUsuario
 AS
 BEGIN
     SET NOCOUNT ON;
-    
+
     SELECT GU.IdGrupo, G.Nombre AS NombreGrupo, G.Descripcion, GU.IdUsuario, GU.Estado
     FROM GrupoUsuarios GU
     INNER JOIN Grupos G ON GU.IdGrupo = G.IdGrupo
@@ -57,7 +57,7 @@ CREATE PROCEDURE sp_EliminarUsuarioDeGrupo
 AS
 BEGIN
     SET NOCOUNT ON;
-    
+
     UPDATE GrupoUsuarios
     SET Estado = 0
     WHERE IdGrupo = @IdGrupo AND IdUsuario = @IdUsuario;
@@ -75,7 +75,7 @@ CREATE PROCEDURE sp_ReactivarUsuarioEnGrupo
 AS
 BEGIN
     SET NOCOUNT ON;
-    
+
     UPDATE GrupoUsuarios
     SET Estado = 1
     WHERE IdGrupo = @IdGrupo AND IdUsuario = @IdUsuario;

@@ -2,8 +2,8 @@ import {
     API_AUTH_LOGIN
 } from '../config/settings.js';
 
-import { sendData } from '../data/apiMethods.js';
-import { showError } from '../utils/sweetAlert.js';
+import {sendData} from '../data/apiMethods.js';
+import {showError} from '../utils/sweetAlert.js';
 
 // Función mejorada para sanitizar entradas
 const sanitizeInput = (input) => {
@@ -28,7 +28,7 @@ const login = async () => {
     clave = sanitizeInput(clave);
 
     try {
-        const data = { usuario, clave };
+        const data = {usuario, clave};
         const response = await sendData(API_AUTH_LOGIN, "POST", data);
 
         if (response && response.token) {

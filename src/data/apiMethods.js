@@ -117,4 +117,4 @@ async function fetchDataToken(url, method, headers = {}) {
 
 
 // Exportar funciones
-export { fetchData, sendData, fetchDataToken };
+export {fetchData, sendData, fetchDataToken};

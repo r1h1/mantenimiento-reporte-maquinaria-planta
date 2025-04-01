@@ -1,4 +1,4 @@
-import { verificarToken } from '../utils/tokenValidation.js';
+import {verificarToken} from '../utils/tokenValidation.js';
 
 const closeSession = function () {
     try {

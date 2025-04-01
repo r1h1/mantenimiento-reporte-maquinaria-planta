@@ -1,5 +1,5 @@
 // Función genérica para mostrar alertas
-function showAlert({ title = "Mensaje", text = "", icon = "info", confirmButtonText = "OK" }) {
+function showAlert({title = "Mensaje", text = "", icon = "info", confirmButtonText = "OK"}) {
     return Swal.fire({
         title,
         text,
@@ -43,4 +43,4 @@ async function showConfirmation(message = "¿Estás seguro?", confirmButtonText 
 }
 
 // Exportar funciones para usarlas en otros archivos
-export { showAlert, showSuccess, showError, showConfirmation };
+export {showAlert, showSuccess, showError, showConfirmation};

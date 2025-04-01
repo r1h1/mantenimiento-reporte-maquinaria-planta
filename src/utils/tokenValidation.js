@@ -1,5 +1,5 @@
-import { API_AUTH_VALIDARTOKEN } from '../config/settings.js';
-import { fetchDataToken } from '../data/apiMethods.js';
+import {API_AUTH_VALIDARTOKEN} from '../config/settings.js';
+import {fetchDataToken} from '../data/apiMethods.js';
 
 const verificarToken = async (token) => {
     if (!token) {
@@ -28,4 +28,4 @@ const verificarToken = async (token) => {
     }
 };
 
-export { verificarToken };
+export {verificarToken};

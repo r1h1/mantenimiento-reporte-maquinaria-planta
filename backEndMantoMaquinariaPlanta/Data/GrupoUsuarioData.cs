@@ -88,13 +88,23 @@ namespace mantoMaquinariaPlanta.Data
                 {
                     if (await reader.ReadAsync())
                     {
-                        int filasAfectadas = reader.GetInt32(0);
-                        return filasAfectadas > 0;
+                        int resultado = reader.GetInt32(0);
+                        if (resultado == 1)
+                        {
+                            // Usuario insertado correctamente
+                            return true;
+                        }
+                        else if (resultado == 2)
+                        {
+                            // El usuario ya existe en el grupo
+                            return true; // Devolver true para evitar conflicto
+                        }
                     }
                 }
             }
             return false;
         }
+
 
         // Eliminar un usuario de un grupo (desactivación lógica)
         public async Task<bool> EliminarUsuarioDeGrupo(int idGrupo, int idUsuario)
