@@ -264,6 +264,35 @@ window.verEmpleadosGrupo = async function (idGrupo) {
 };
 
 
+window.eliminarGrupo = async (idGrupo) => {
+    const confirmDelete = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "No podrás revertir esta acción.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+    });
+
+    if (confirmDelete.isConfirmed) {
+        try {
+            const response = await fetchData(`${API_GRUPOS}/${idGrupo}`, "DELETE", obtenerHeaders());
+
+            if (response && response.code === 200) {
+                showSuccess("Grupo eliminado correctamente.");
+                cargarTodasLasFuncionesGet();
+            } else {
+                showError("No se pudo eliminar.");
+            }
+        } catch (error) {
+            showError("Error al eliminar: " + error);
+        }
+    }
+};
+
+
 // Redirigir al usuario a la página de error 401 si el token no es válido
 const redirigirA401 = () => {
     window.location.href = "../../../src/views/pages/401.html";

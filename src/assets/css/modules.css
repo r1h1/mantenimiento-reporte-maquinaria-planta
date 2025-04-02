@@ -106,6 +106,14 @@ li,a,label,th{
     background-color: #ffffff;
 }
 
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+    min-width: 0; /* 🧠 Esto evita el desborde horizontal */
+    transition: margin-left 0.3s ease-in-out;
+}
+
 .menu-btn i {
     font-size: 30px;
 }
