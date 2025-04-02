@@ -46,71 +46,15 @@
 <div class="content" id="content" style="display: none;">
     <div class="container-fluid p-5">
         <div class="row g-3">
-            <div class="col-md-12 mb-4">
+            <div class="col-md-12">
                 <div class="formulario">
                     <h5>Gestión</h5>
-                    <form class="row g-3 mt-3">
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Área</label>
-                            <select id="areaFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Máquina</label>
-                            <select id="maquinaFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Grupo</label>
-                            <select id="grupoFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Usuario</label>
-                            <select id="usuarioFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Estado</label>
-                            <select id="estadoFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-2">
-                            <label for="inputState" class="form-label">Impacto</label>
-                            <select id="prioridadFiltro" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <label for="inputState" class="form-label">Fecha Inicio</label>
-                            <input type="date" name="date" id="fechaInicioFiltro" class="form-control">
-                        </div>
-                        <div class="col-md-12 col-lg-6">
-                            <label for="inputState" class="form-label">Fecha Fin</label>
-                            <input type="date" name="date" id="fechaFinFiltro" class="form-control">
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a class="btn btn-danger w-100">Buscar por filtro(s)</a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-4">
+                    <div class="row g-3 mt-3">
+                        <div class="col-sm-4">
                             <a class="btn btn-danger w-100" data-bs-toggle="modal"
                                data-bs-target="#exampleModal">Nuevo Reporte</a>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-lg-4">
-                            <a class="btn btn-danger w-100">Ver todo</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -190,12 +134,12 @@
                                         <label for="inputEmail4" class="form-label">Descripción del problema</label>
                                         <input type="text" class="form-control" id="descripcionReporte">
                                     </div>
-                                    <div class="col-md-12 col-lg-4">
-                                        <label for="inputEmail4" class="form-label">Medidas tomadas antes del
-                                            reporte</label>
+                                    <div class="col-md-12 col-lg-12">
+                                        <label for="inputEmail4" class="form-label">Medidas tomadas antes de
+                                            reportar</label>
                                         <input type="text" class="form-control" id="medidasTomadasReporte">
                                     </div>
-                                    <div class="col-md-12 col-lg-4">
+                                    <div class="col-md-12 col-lg-6">
                                         <label for="inputState" class="form-label">¿Hay personas lastimadas?</label>
                                         <select id="personasLastimadasReporte" class="form-select">
                                             <option selected>Selecciona...</option>
@@ -203,7 +147,7 @@
                                             <option value="0">No</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-12 col-lg-4">
+                                    <div class="col-md-12 col-lg-6">
                                         <label for="inputState" class="form-label">¿Hay daños materiales?</label>
                                         <select id="danosMaterialesReporte" class="form-select">
                                             <option selected>Selecciona...</option>
@@ -245,7 +189,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../utils/init.js"></script>
 <script type="module" src="../../utils/sweetAlert.js"></script>
-<script type="module" src="../../business/reportar.js"></script>
+<script type="module" src="../../business/reportarfallo.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqevDELHWF0aE1SIH1UQVlAAAAAACAAAAAAAQZgAAAAEAACAAAADmtfQBdJdc7PLNFMcNcOvC3RrVrsF6+rzpSYzyWCTA0gAAAAAOgAAAAAIAACAAAABIqRvbAm5++qLmfYv1Eahtcc9Bg3JPcMRddWAVUIDaZTAAAABU5zNHBGpLtblu39yj+xAgLEHv/McWstz3whXTRVA7xABVlCENuv0dMrlTobiwGKhAAAAAiAW5nVMuHgxp92SDQ8AOXRRqDe0u4u9IDMcRX7mtioM2NJ3qMriEgDMkAUbWjliNnGTIZEGiUh5dBK/uMIq0UA==</EncryptedPassword>
     <_PublishTargetUrl>ftp://vicalapi.somee.com/www.vicalapi.somee.com</_PublishTargetUrl>
-    <History>True|2025-04-01T00:23:10.2361102Z||;True|2025-03-25T17:41:42.0161290-06:00||;True|2025-03-20T13:56:55.9937221-06:00||;True|2025-03-20T13:00:49.2280122-06:00||;True|2025-03-20T12:43:53.7679205-06:00||;True|2025-03-19T16:45:29.2564531-06:00||;True|2025-03-17T16:47:23.4976916-06:00||;True|2025-03-17T16:44:37.2635361-06:00||;True|2025-03-16T17:41:49.8872503-06:00||;True|2025-03-15T16:35:03.4526526-06:00||;False|2025-03-15T16:34:29.9048362-06:00||;True|2025-03-15T14:31:48.4456092-06:00||;False|2025-03-15T14:09:03.5353530-06:00||;False|2025-03-15T14:06:33.9478532-06:00||;</History>
+    <History>True|2025-04-02T22:57:59.9352530Z||;True|2025-03-31T18:23:10.2361102-06:00||;True|2025-03-25T17:41:42.0161290-06:00||;True|2025-03-20T13:56:55.9937221-06:00||;True|2025-03-20T13:00:49.2280122-06:00||;True|2025-03-20T12:43:53.7679205-06:00||;True|2025-03-19T16:45:29.2564531-06:00||;True|2025-03-17T16:47:23.4976916-06:00||;True|2025-03-17T16:44:37.2635361-06:00||;True|2025-03-16T17:41:49.8872503-06:00||;True|2025-03-15T16:35:03.4526526-06:00||;False|2025-03-15T16:34:29.9048362-06:00||;True|2025-03-15T14:31:48.4456092-06:00||;False|2025-03-15T14:09:03.5353530-06:00||;False|2025-03-15T14:06:33.9478532-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -21,16 +21,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/03/2022 10:10:20</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.deps.json">
-      <publishTime>03/31/2025 18:22:42</publishTime>
+      <publishTime>04/02/2025 16:57:32</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.dll">
-      <publishTime>03/31/2025 18:22:42</publishTime>
+      <publishTime>04/02/2025 16:57:32</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.exe">
-      <publishTime>03/31/2025 18:22:42</publishTime>
+      <publishTime>04/02/2025 16:57:32</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.pdb">
-      <publishTime>03/31/2025 18:22:42</publishTime>
+      <publishTime>04/02/2025 16:57:32</publishTime>
     </File>
     <File Include="mantoMaquinariaPlanta.runtimeconfig.json">
       <publishTime>03/15/2025 13:54:45</publishTime>
@@ -39,7 +39,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.AspNetCore.Authentication.JwtBearer.dll">
-      <publishTime>12/02/2025 23:21:52</publishTime>
+      <publishTime>02/12/2025 23:21:52</publishTime>
     </File>
     <File Include="Microsoft.Extensions.DependencyInjection.Abstractions.dll">
       <publishTime>09/16/2024 17:09:34</publishTime>
@@ -72,19 +72,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/30/2024 03:56:48</publishTime>
     </File>
     <File Include="runtimes/unix/lib/net8.0/System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:16</publishTime>
+      <publishTime>11/12/2024 15:47:16</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/sni.dll">
-      <publishTime>12/07/2017 05:24:24</publishTime>
+      <publishTime>07/12/2017 05:24:24</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/sni.dll">
-      <publishTime>12/07/2017 05:24:22</publishTime>
+      <publishTime>07/12/2017 05:24:22</publishTime>
     </File>
     <File Include="runtimes/win-x86/native/sni.dll">
-      <publishTime>12/07/2017 05:24:22</publishTime>
+      <publishTime>07/12/2017 05:24:22</publishTime>
     </File>
     <File Include="runtimes/win/lib/net8.0/System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:26</publishTime>
+      <publishTime>11/12/2024 15:47:26</publishTime>
     </File>
     <File Include="Swashbuckle.AspNetCore.Swagger.dll">
       <publishTime>02/27/2025 13:18:44</publishTime>
@@ -96,13 +96,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>02/27/2025 13:18:46</publishTime>
     </File>
     <File Include="System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:12</publishTime>
+      <publishTime>11/12/2024 15:47:12</publishTime>
     </File>
     <File Include="System.IdentityModel.Tokens.Jwt.dll">
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>03/31/2025 18:22:42</publishTime>
+      <publishTime>04/02/2025 16:57:32</publishTime>
     </File>
   </ItemGroup>
 </Project>

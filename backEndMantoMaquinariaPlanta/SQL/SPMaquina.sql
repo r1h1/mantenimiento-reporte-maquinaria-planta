@@ -43,6 +43,22 @@ BEGIN
     WHERE IdMaquina = @IdMaquina;
 END;
 
+
+-- =============================================
+-- Filtrar máquinas por área
+-- =============================================
+CREATE PROCEDURE sp_FiltrarMaquinasPorArea
+    @IdArea INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT IdMaquina, NombreCodigo, IdTipoMaquina, IdArea, IdPlanta, Estado
+    FROM Maquinas
+    WHERE Estado = 1 AND IdArea = @IdArea;
+END;
+
+
 -- =============================================
 -- Actualizar una máquina por ID
 -- =============================================

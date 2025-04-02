@@ -41,6 +41,27 @@ namespace mantoMaquinariaPlanta.Controllers
             return Ok(maquina);
         }
 
+        // GET: api/Maquinas/area/{idArea} - Filtrar por área
+        [HttpGet("area/{idArea}")]
+        [Authorize]
+        public async Task<IActionResult> FiltrarPorArea(int idArea)
+        {
+            if (idArea <= 0)
+            {
+                return BadRequest(new { code = 400, isSuccess = false, message = "ID de área inválido" });
+            }
+
+            var lista = await _data.FiltrarPorArea(idArea);
+
+            if (lista == null || lista.Count == 0)
+            {
+                return NotFound(new { code = 404, isSuccess = false, message = "No se encontraron máquinas en el área indicada" });
+            }
+
+            return Ok(new { code = 200, isSuccess = true, data = lista });
+        }
+
+
         // POST: api/Maquinas - Crear una máquina
         [HttpPost]
         [Authorize]

@@ -77,6 +77,42 @@ namespace mantoMaquinariaPlanta.Data
             return maquina;
         }
 
+
+
+        // Filtrar máquinas por área
+        public async Task<List<Maquina>> FiltrarPorArea(int idArea)
+        {
+            List<Maquina> lista = new List<Maquina>();
+
+            using (var con = new SqlConnection(_conexion))
+            {
+                await con.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_FiltrarMaquinasPorArea", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdArea", idArea);
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        lista.Add(new Maquina
+                        {
+                            IdMaquina = reader.GetInt32("IdMaquina"),
+                            NombreCodigo = reader.GetString("NombreCodigo"),
+                            IdTipoMaquina = reader.GetInt32("IdTipoMaquina"),
+                            IdArea = reader["IdArea"] as int?,
+                            IdPlanta = reader["IdPlanta"] as int?,
+                            Estado = reader.GetBoolean("Estado")
+                        });
+                    }
+                }
+            }
+
+            return lista;
+        }
+
+
+
         // Crear una nueva máquina
         public async Task<int> Crear(Maquina maquina)
         {
