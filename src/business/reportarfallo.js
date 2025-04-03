@@ -86,7 +86,171 @@ const cargarMaquinasPorArea = async () => {
     }
 };
 
+
+const obtenerIncidenciasReportadas = async () => {
+    try {
+        const response = await fetchData(API_REPORTES, "GET", obtenerHeaders());
+
+        if (response && Array.isArray(response)) {
+            $('#tabla-datos-dinamicos').DataTable({
+                destroy: true,
+                data: response,
+                columns: [
+                    { data: "idReporte" }, // #
+                    {
+                        data: "impacto",
+                        render: function (data) {
+                            switch (data) {
+                                case "1":
+                                case 1: return "Baja";
+                                case "2":
+                                case 2: return "Media";
+                                case "3":
+                                case 3: return "Alta";
+                                case "4":
+                                case 4: return "Crítica";
+                                default: return data;
+                            }
+                        }
+                    },
+                    {
+                        data: "estadoReporte",
+                        render: function (data) {
+                            switch (data) {
+                                case "1":
+                                case 1: return "Mantenimiento";
+                                case "0":
+                                case 0: return "Fallo";
+                                default: return data;
+                            }
+                        }
+                    },
+                    { data: "idArea" },
+                    { data: "idMaquina" },
+                    {
+                        data: "fechaReporte",
+                        render: function (data) {
+                            const fecha = new Date(data);
+                            return fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
+                        }
+                    },
+                    { data: "titulo" },
+                    {
+                        data: "personasLastimadas",
+                        render: function (data) {
+                            return data ? "Sí" : "No";
+                        }
+                    },
+                    {
+                        data: "danosMateriales",
+                        render: function (data) {
+                            return data ? "Sí" : "No";
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function (row) {
+                            return `
+                                <button onclick="editarReporte(${row.idReporte})" class="btn btn-primary">Ver</button>
+                                <button onclick="eliminarReporte(${row.idReporte})" class="btn btn-danger">Eliminar</button>
+                            `;
+                        }
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json"
+                }
+            });
+        } else {
+            showError("No se encontraron reportes registrados.");
+        }
+    } catch (error) {
+        showError("Ocurrió un error al obtener los reportes.");
+        console.error(error);
+    }
+};
+
+
+
+const postReporte = async () => {
+    try {
+        const campos = {
+            tipoReporte: document.getElementById("tipoReporte"), // este sería "estadoReporte"
+            impactoReporte: document.getElementById("impactoReporte"),
+            areaReporte: document.getElementById("areaReporte"), // debe ser ID numérico
+            maquinaReporte: document.getElementById("maquinaReporte"), // debe ser ID numérico
+            tituloReporte: document.getElementById("tituloReporte"),
+            descripcionReporte: document.getElementById("descripcionReporte"),
+            medidasTomadasReporte: document.getElementById("medidasTomadasReporte"),
+            personasLastimadasReporte: document.getElementById("personasLastimadasReporte"), // true/false
+            danosMaterialesReporte: document.getElementById("danosMaterialesReporte"), // true/false
+        };
+
+        const hayCamposVacios = Object.values(campos).some(
+            campo => !campo || campo.value.trim() === "" || campo.value === "Selecciona..."
+        );
+
+        if (hayCamposVacios) {
+            showError("Por favor, complete todos los campos obligatorios antes de continuar.");
+            return;
+        }
+
+        const data = {
+            idReporte: 0, // se crea nuevo
+            idArea: parseInt(campos.areaReporte.value),
+            idMaquina: parseInt(campos.maquinaReporte.value),
+            impacto: campos.impactoReporte.value.trim(),
+            personasLastimadas: campos.personasLastimadasReporte.value === "true",
+            danosMateriales: campos.danosMaterialesReporte.value === "true",
+            fechaReporte: new Date().toISOString(),
+            titulo: campos.tituloReporte.value.trim(),
+            medidasTomadas: campos.medidasTomadasReporte.value.trim(),
+            descripcion: campos.descripcionReporte.value.trim(),
+            estadoReporte: campos.tipoReporte.value.trim(),
+            estado: true
+        };
+
+        const response = await sendData(API_REPORTES, "POST", data, obtenerHeaders());
+
+        if (response && response.code === 201) {
+            showSuccess("El reporte ha sido registrado exitosamente.");
+            cargarTodasLasFuncionesGet(); // recarga la información
+            limpiar();
+            const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
+            modal.hide();
+        }
+
+    } catch (error) {
+        showError("Ocurrió un error al registrar el reporte. Por favor, inténtelo nuevamente. " + error);
+        console.error(error);
+    }
+};
+
+
 const limpiar = function () {
+    const campos = {
+        tipoReporte: document.getElementById("tipoReporte"),
+        impactoReporte: document.getElementById("impactoReporte"),
+        areaReporte: document.getElementById("areaReporte"),
+        maquinaReporte: document.getElementById("maquinaReporte"),
+        tituloReporte: document.getElementById("tituloReporte"),
+        descripcionReporte: document.getElementById("descripcionReporte"),
+        medidasTomadasReporte: document.getElementById("medidasTomadasReporte"),
+        personasLastimadasReporte: document.getElementById("personasLastimadasReporte"),
+        danosMaterialesReporte: document.getElementById("danosMaterialesReporte"),
+    };
+
+    for (const campo of Object.values(campos)) {
+        if (campo) {
+            if (campo.tagName === "SELECT") {
+                campo.selectedIndex = 0; // volver al primer <option>
+            } else {
+                campo.value = ""; // limpiar texto
+            }
+        }
+    }
+
+    // Reiniciar select de máquinas
     const selectMaquinas = document.getElementById("maquinaReporte");
     if (selectMaquinas) {
         selectMaquinas.innerHTML = `<option value="0" selected>Selecciona...</option>`;
@@ -96,6 +260,7 @@ const limpiar = function () {
 
 const cargarTodasLasFuncionesGet = function () {
     obtenerAreas();
+    obtenerIncidenciasReportadas();
     limpiar();
 };
 

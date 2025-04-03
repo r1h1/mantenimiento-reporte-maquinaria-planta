@@ -66,7 +66,7 @@
                         <tr>
                             <th>#</th>
                             <th>Impacto</th>
-                            <th>Estado</th>
+                            <th>Tipo</th>
                             <th>Área</th>
                             <th>Máquina</th>
                             <th>Fecha Reporte</th>
@@ -95,7 +95,7 @@
                         <div class="modal-body">
                             <div class="formulario card border-1">
                                 <h5 class="card-header">Nuevo Reporte</h5>
-                                <form class="row g-3 card-body p-4">
+                                <div class="row g-3 card-body p-4">
                                     <div class="col-md-12 col-lg-4">
                                         <label for="inputState" class="form-label">Tipo</label>
                                         <select id="tipoReporte" class="form-select">
@@ -143,25 +143,25 @@
                                         <label for="inputState" class="form-label">¿Hay personas lastimadas?</label>
                                         <select id="personasLastimadasReporte" class="form-select">
                                             <option selected>Selecciona...</option>
-                                            <option value="1">Si</option>
-                                            <option value="0">No</option>
+                                            <option value="true">Si</option>
+                                            <option value="false">No</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12 col-lg-6">
                                         <label for="inputState" class="form-label">¿Hay daños materiales?</label>
                                         <select id="danosMaterialesReporte" class="form-select">
                                             <option selected>Selecciona...</option>
-                                            <option value="1">Si</option>
-                                            <option value="0">No</option>
+                                            <option value="true">Si</option>
+                                            <option value="false">No</option>
                                         </select>
                                     </div>
                                     <div class="col-md-12 col-lg-6">
-                                        <a class="btn btn-danger w-100" href="reporte_informacion.html?q=12">Guardar</a>
+                                        <button class="btn btn-danger w-100" id="guardarReportar">Guardar</button>
                                     </div>
                                     <div class="col-md-12 col-lg-6">
-                                        <a class="btn btn-danger w-100">Limpiar</a>
+                                        <button class="btn btn-danger w-100" id="limpiarReportar">Limpiar</button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
