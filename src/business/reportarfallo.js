@@ -151,7 +151,7 @@ const obtenerIncidenciasReportadas = async () => {
                         data: null,
                         render: function (row) {
                             return `
-                                <button onclick="editarReporte(${row.idReporte})" class="btn btn-primary">Ver</button>
+                                <button onclick="verReporte(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-primary">Ver</button>
                                 <button onclick="eliminarReporte(${row.idReporte})" class="btn btn-danger">Eliminar</button>
                             `;
                         }
@@ -168,6 +168,23 @@ const obtenerIncidenciasReportadas = async () => {
         showError("Ocurrió un error al obtener los reportes.");
         console.error(error);
     }
+};
+
+window.verReporte = function (row) {
+    const params = new URLSearchParams({
+        id: row.idReporte,
+        area: row.area || row.idArea,
+        maquina: row.maquina || row.idMaquina,
+        impacto: row.impacto,
+        personas: row.personasLastimadas,
+        danos: row.danosMateriales,
+        fecha: row.fechaReporte,
+        titulo: row.titulo,
+        medidas: row.medidasTomadas,
+        descripcion: row.descripcion
+    });
+
+    location.href = "reporte_informacion.html?" + params.toString();
 };
 
 

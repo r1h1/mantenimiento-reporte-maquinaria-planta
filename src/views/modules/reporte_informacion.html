@@ -48,153 +48,144 @@
         <div class="row g-3">
             <div class="col-md-12">
                 <div class="formulario card border-1">
-                    <h5 class="card-header">Información mantenimiento #<span>0000000000</span></h5>
-                    <form class="row g-3 card-body p-4">
+                    <h5 class="card-header">Información No. #<span id="idReporteActual">0</span></h5>
+                    <div class="row g-3 card-body p-4">
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Área</label>
-                            <select id="areaFiltro" class="form-select" disabled>
+                            <select id="areaInformacion" class="form-select" disabled>
                                 <option selected>Selecciona...</option>
-                                <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Máquina</label>
-                            <select id="maquinaFiltro" class="form-select" disabled>
+                            <select id="maquinaInformacion" class="form-select" disabled>
                                 <option selected>Selecciona...</option>
-                                <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Impacto</label>
-                            <select id="prioridadFiltro" class="form-select" disabled>
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
+                            <select id="impactoInformacion" class="form-select" disabled>
+                                <option value="1">Baja</option>
+                                <option value="2">Media</option>
+                                <option value="3">Alta</option>
+                                <option value="4">Crítica</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Personas Lastimadas</label>
-                            <select id="maquinaFiltro" class="form-select" disabled>
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
+                            <select id="personasLastimadasInformacion" class="form-select" disabled>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Daños Materiales</label>
-                            <select id="prioridadFiltro" class="form-select" disabled>
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
+                            <select id="danosMaterialesInformacion" class="form-select" disabled>
+                                <option value="true">Si</option>
+                                <option value="false">No</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Fecha Reporte</label>
-                            <input type="date" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            <input type="text" name="date" id="fechaReporteInformacion" class="form-control" disabled>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Título Reporte</label>
-                            <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            <input type="text" name="date" id="tituloReporteInformacion" class="form-control" disabled>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Medidas Tomadas</label>
-                            <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            <input type="text" name="date" id="medidasTomadasInformacion" class="form-control" disabled>
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <label for="inputState" class="form-label">Descripción</label>
-                            <input type="text" name="date" id="fechaInicioFiltro" class="form-control" disabled>
+                            <input type="text" name="date" id="descripcionInformacion" class="form-control" disabled>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-12">
                 <div class="formulario card border-1">
                     <h5 class="card-header">Asignación</h5>
-                    <form class="row g-3 card-body p-4">
+                    <div class="row g-3 card-body p-4">
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Grupo</label>
-                            <select id="areaFiltro" class="form-select">
+                            <select id="grupoAsignacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Usuario Asignado</label>
-                            <select id="maquinaFiltro" class="form-select">
+                            <select id="usuarioAsignacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Estado</label>
-                            <select id="prioridadFiltro" class="form-select">
+                            <select id="estadoAsignacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Fecha Inicio Trabajo</label>
-                            <input type="date" name="date" id="fechaInicioFiltro" class="form-control">
+                            <input type="date" name="date" id="fechaInicioAsignacion" class="form-control">
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <label for="inputState" class="form-label">Descripción / Hallazgo</label>
-                            <input type="email" class="form-control" id="nombreCodigo">
+                            <input type="email" class="form-control" id="descripcionHallazgoAsignacion">
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <label for="inputState" class="form-label">Descripción de materiales utilizados</label>
-                            <input type="email" class="form-control" id="nombreCodigo">
+                            <input type="email" class="form-control" id="descripcionMaterialesUtilizadosAsignacion">
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2">
-                            <a class="btn btn-danger w-100">Guardar</a>
+                            <button class="btn btn-danger w-100" id="guardarAsignar">Guardar Asignacion</button>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-lg-2">
-                            <a class="btn btn-danger w-100">Cerrar</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-12">
                 <div class="formulario card border-1">
                     <h5 class="card-header">Finalización</h5>
-                    <form class="row g-3 card-body p-4">
+                    <div class="row g-3 card-body p-4">
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Grupo</label>
-                            <select id="areaFiltro" class="form-select">
+                            <select id="grupoFinalizacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Usuario Asignado</label>
-                            <select id="maquinaFiltro" class="form-select">
+                            <select id="usuarioFinalizacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Estado</label>
-                            <select id="prioridadFiltro" class="form-select">
+                            <select id="estadoFinalizacion" class="form-select">
                                 <option selected>Selecciona...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Fecha Fin Trabajo</label>
-                            <input type="date" name="date" id="fechaInicioFiltro" class="form-control">
+                            <input type="date" name="date" id="fechaFinFinalizacion" class="form-control">
                         </div>
                         <div class="col-md-12 col-lg-12">
                             <label for="inputState" class="form-label">Descripción de la solución</label>
-                            <input type="email" class="form-control" id="nombreCodigo">
+                            <input type="text" class="form-control" id="descripcionSolucionFinalizacion">
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2">
-                            <a class="btn btn-danger w-100">Cerrar</a>
+                            <button class="btn btn-danger w-100" id="cerrarFinalizacion">Finalizar</button>
                         </div>
-                        <div class="col-sm-6 col-md-4 col-lg-2">
-                            <a class="btn btn-danger w-100">Congelar</a>
-                        </div>
-                        <div class="col-sm-6 col-md-4 col-lg-2">
-                            <a class="btn btn-danger w-100">Retomar</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
