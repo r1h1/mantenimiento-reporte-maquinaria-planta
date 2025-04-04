@@ -1,5 +1,5 @@
 import {verificarToken} from '../utils/tokenValidation.js';
-import {API_REPORTES, API_AREAS, API_MAQUINAS, API_PLANTAS} from '../config/settings.js';
+import {API_REPORTES, API_AREAS, API_MAQUINAS, API_FINALIZACIONES, API_ASIGNACIONES} from '../config/settings.js';
 import {sendData, fetchData} from '../data/apiMethods.js';
 import {showError, showSuccess} from '../utils/sweetAlert.js';
 
@@ -18,7 +18,7 @@ const obtenerHeaders = () => {
         closeSession();
         return null;
     }
-    return { "Authorization": `Bearer ${token}` };
+    return {"Authorization": `Bearer ${token}`};
 };
 
 const obtenerAreas = async () => {
@@ -89,27 +89,83 @@ const cargarMaquinasPorArea = async () => {
 
 const obtenerIncidenciasReportadas = async () => {
     try {
-        const response = await fetchData(API_REPORTES, "GET", obtenerHeaders());
+        const [reportes, asignaciones, finalizaciones] = await Promise.all([
+            fetchData(API_REPORTES, "GET", obtenerHeaders()),
+            fetchData(API_ASIGNACIONES, "GET", obtenerHeaders()),
+            fetchData(API_FINALIZACIONES, "GET", obtenerHeaders())
+        ]);
 
-        if (response && Array.isArray(response)) {
+        if (reportes && Array.isArray(reportes)) {
+            // Agregamos el estado general a cada reporte
+            const reportesConEstado = reportes.map(reporte => {
+                const asig = asignaciones.find(a => a.idReporte === reporte.idReporte);
+                const fin = asig ? finalizaciones.find(f => f.idAsignacion === asig.idAsignacion) : null;
+
+                let estadoGeneral = "Pendiente";
+                if (fin) {
+                    estadoGeneral = "Finalizado";
+                } else if (asig) {
+                    estadoGeneral = "Asignado";
+                }
+
+                return {
+                    ...reporte,
+                    estadoGeneral
+                };
+            });
+
             $('#tabla-datos-dinamicos').DataTable({
                 destroy: true,
-                data: response,
+                data: reportesConEstado,
                 columns: [
-                    { data: "idReporte" }, // #
+                    {
+                        data: null,
+                        render: function (row) {
+                            return `
+                                <button onclick="verReporte(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-primary">Ver</button>
+                                <button onclick="eliminarReporte(${row.idReporte})" class="btn btn-danger">Eliminar</button>
+                            `;
+                        }
+                    },
+                    {
+                        data: "estadoGeneral",
+                        render: function (data) {
+                            let badge = '';
+                            switch (data) {
+                                case "Pendiente":
+                                    badge = '<span class="badge bg-warning text-dark">Pendiente</span>';
+                                    break;
+                                case "Asignado":
+                                    badge = '<span class="badge bg-info text-dark">Asignado</span>';
+                                    break;
+                                case "Finalizado":
+                                    badge = '<span class="badge bg-success text-white">Finalizado</span>';
+                                    break;
+                                default:
+                                    badge = `<span class="badge bg-secondary">${data}</span>`;
+                            }
+                            return badge;
+                        }
+                    },
+                    {data: "idReporte"},
                     {
                         data: "impacto",
                         render: function (data) {
                             switch (data) {
                                 case "1":
-                                case 1: return "Baja";
+                                case 1:
+                                    return "Baja";
                                 case "2":
-                                case 2: return "Media";
+                                case 2:
+                                    return "Media";
                                 case "3":
-                                case 3: return "Alta";
+                                case 3:
+                                    return "Alta";
                                 case "4":
-                                case 4: return "Crítica";
-                                default: return data;
+                                case 4:
+                                    return "Crítica";
+                                default:
+                                    return data;
                             }
                         }
                     },
@@ -118,15 +174,18 @@ const obtenerIncidenciasReportadas = async () => {
                         render: function (data) {
                             switch (data) {
                                 case "1":
-                                case 1: return "Mantenimiento";
+                                case 1:
+                                    return "Mantenimiento";
                                 case "0":
-                                case 0: return "Fallo";
-                                default: return data;
+                                case 0:
+                                    return "Fallo";
+                                default:
+                                    return data;
                             }
                         }
                     },
-                    { data: "idArea" },
-                    { data: "idMaquina" },
+                    {data: "idArea"},
+                    {data: "idMaquina"},
                     {
                         data: "fechaReporte",
                         render: function (data) {
@@ -134,7 +193,7 @@ const obtenerIncidenciasReportadas = async () => {
                             return fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString();
                         }
                     },
-                    { data: "titulo" },
+                    {data: "titulo"},
                     {
                         data: "personasLastimadas",
                         render: function (data) {
@@ -145,15 +204,6 @@ const obtenerIncidenciasReportadas = async () => {
                         data: "danosMateriales",
                         render: function (data) {
                             return data ? "Sí" : "No";
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function (row) {
-                            return `
-                                <button onclick="verReporte(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})" class="btn btn-primary">Ver</button>
-                                <button onclick="eliminarReporte(${row.idReporte})" class="btn btn-danger">Eliminar</button>
-                            `;
                         }
                     }
                 ],
@@ -169,6 +219,7 @@ const obtenerIncidenciasReportadas = async () => {
         console.error(error);
     }
 };
+
 
 window.verReporte = function (row) {
     const params = new URLSearchParams({
@@ -187,6 +238,34 @@ window.verReporte = function (row) {
     location.href = "reporte_informacion.html?" + params.toString();
 };
 
+
+window.eliminarReporte = async (idReporte) => {
+    const confirmDelete = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "No podrás revertir esta acción.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+    });
+
+    if (confirmDelete.isConfirmed) {
+        try {
+            const response = await fetchData(`${API_REPORTES}/${idReporte}`, "DELETE", obtenerHeaders());
+
+            if (response && response.code === 200) {
+                showSuccess("Reporte eliminado correctamente.");
+                cargarTodasLasFuncionesGet();
+            } else {
+                showError("No se pudo eliminar.");
+            }
+        } catch (error) {
+            showError("Error al eliminar: " + error);
+        }
+    }
+};
 
 
 const postReporte = async () => {
@@ -295,13 +374,13 @@ const manejarGuardarReportar = () => {
 };
 
 const eventos = [
-    { id: "guardarReportar", callback: manejarGuardarReportar },
-    { id: "limpiarReportar", callback: limpiar },
-    { id: "closeSession", callback: closeSession }
+    {id: "guardarReportar", callback: manejarGuardarReportar},
+    {id: "limpiarReportar", callback: limpiar},
+    {id: "closeSession", callback: closeSession}
 ];
 
 const inicializarEventos = () => {
-    eventos.forEach(({ id, callback }) => asignarEvento(id, callback));
+    eventos.forEach(({id, callback}) => asignarEvento(id, callback));
 
     const selectArea = document.getElementById("areaReporte");
     if (selectArea) {

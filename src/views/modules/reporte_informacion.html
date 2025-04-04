@@ -107,7 +107,7 @@
 
             <div class="col-md-12">
                 <div class="formulario card border-1">
-                    <h5 class="card-header">Asignación</h5>
+                    <h5 class="card-header">Asignación No. #<span id="idAsignacionReporte">0</span></h5>
                     <div class="row g-3 card-body p-4">
                         <div class="col-md-12 col-lg-3">
                             <label for="inputState" class="form-label">Grupo</label>
@@ -127,7 +127,9 @@
                             <label for="inputState" class="form-label">Estado</label>
                             <select id="estadoAsignacion" class="form-select">
                                 <option selected>Selecciona...</option>
-                                <option>...</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Asignado">Asignado</option>
+                                <option value="Pendiente">Finalizado</option>
                             </select>
                         </div>
                         <div class="col-md-12 col-lg-3">
@@ -153,28 +155,16 @@
                 <div class="formulario card border-1">
                     <h5 class="card-header">Finalización</h5>
                     <div class="row g-3 card-body p-4">
-                        <div class="col-md-12 col-lg-3">
-                            <label for="inputState" class="form-label">Grupo</label>
-                            <select id="grupoFinalizacion" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-3">
-                            <label for="inputState" class="form-label">Usuario Asignado</label>
-                            <select id="usuarioFinalizacion" class="form-select">
-                                <option selected>Selecciona...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-12 col-lg-3">
+                        <div class="col-md-12 col-lg-6">
                             <label for="inputState" class="form-label">Estado</label>
                             <select id="estadoFinalizacion" class="form-select">
                                 <option selected>Selecciona...</option>
-                                <option>...</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Asignado">Asignado</option>
+                                <option value="Finalizado">Finalizado</option>
                             </select>
                         </div>
-                        <div class="col-md-12 col-lg-3">
+                        <div class="col-md-12 col-lg-6">
                             <label for="inputState" class="form-label">Fecha Fin Trabajo</label>
                             <input type="date" name="date" id="fechaFinFinalizacion" class="form-control">
                         </div>
@@ -188,6 +178,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
